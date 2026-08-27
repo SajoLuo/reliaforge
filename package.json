@@ -1,0 +1,45 @@
+{
+  "name": "reliaforge-site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "The public project home and documentation for ReliaForge.",
+  "license": "MIT",
+  "author": "Sajo Luo",
+  "homepage": "https://sajoluo.github.io/reliaforge/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SajoLuo/reliaforge.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SajoLuo/reliaforge/issues"
+  },
+  "engines": {
+    "node": ">=22.12",
+    "npm": ">=10"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev docs --host=127.0.0.1",
+    "typecheck": "tsc --noEmit",
+    "lint:code": "eslint .",
+    "lint:markdown": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#docs/.vitepress/cache\" \"#docs/.vitepress/dist\" \"#playwright-report\" \"#test-results\"",
+    "lint": "npm run lint:code && npm run lint:markdown",
+    "test:unit": "node --test scripts/check-open-source-hygiene.test.mjs scripts/check-locale-parity.test.mjs",
+    "check:i18n": "node scripts/check-locale-parity.mjs docs",
+    "test:e2e": "playwright test",
+    "build": "vitepress build docs",
+    "preview": "vitepress preview docs --host=127.0.0.1",
+    "check:hygiene": "node scripts/check-open-source-hygiene.mjs ."
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.62.1",
+    "@types/node": "22.15.3",
+    "eslint": "10.9.1",
+    "globals": "17.11.0",
+    "markdownlint-cli2": "0.23.2",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.68.0",
+    "vitepress": "2.0.0-alpha.19"
+  }
+}

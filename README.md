@@ -1,0 +1,48 @@
+# ReliaForge
+
+[简体中文](README_CN.md)
+
+This repository is the public project home and documentation site for ReliaForge, a lightweight
+platform for assembling operations tools as lifecycle-managed Python plugins.
+
+- Documentation: <https://sajoluo.github.io/reliaforge/>
+- Read-only demo: <https://sajoluo.github.io/reliaforge-frontend/>
+- Backend runtime: <https://github.com/SajoLuo/reliaforge-backend>
+- Optional console: <https://github.com/SajoLuo/reliaforge-frontend>
+
+## Local development
+
+Node.js 22.12 or newer and npm 10 or newer are required.
+
+```bash
+npm ci
+npm run dev
+```
+
+Open `http://127.0.0.1:5173/reliaforge/`.
+
+## Verification
+
+```bash
+npm run typecheck
+npm run lint
+npm run test:unit
+npm run check:i18n
+npm run build
+npm run test:e2e
+npm run check:hygiene
+npm audit --audit-level=high
+```
+
+GitHub Actions repeats the quality gate on Node.js 22 and 24, runs desktop and mobile browser
+contracts, and deploys the tested static artifact to GitHub Pages.
+
+## Content ownership
+
+This site owns cross-project concepts, getting started guidance, and the roadmap. Detailed backend
+and frontend implementation contracts stay in their respective repositories and are linked from the
+site rather than copied.
+
+## License
+
+MIT © 2026 Sajo Luo. See [LICENSE](LICENSE).

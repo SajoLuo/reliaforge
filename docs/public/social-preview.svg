@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">ReliaForge</title>
+  <desc id="description">Small plugins, clear boundaries, reliable operations tooling.</desc>
+  <defs>
+    <radialGradient id="glow" cx="76%" cy="26%" r="70%">
+      <stop offset="0" stop-color="#31c48d" stop-opacity=".42"/>
+      <stop offset="1" stop-color="#071b16" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="word" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#e9fff6"/>
+      <stop offset="1" stop-color="#89e9bd"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="#071b16"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <path fill="none" stroke="#31c48d" stroke-width="8" d="m955 116 112 65v129l-112 65-112-65V181z" opacity=".8"/>
+  <path fill="#e9fff6" d="M899 178h63c35 0 57 18 57 48 0 22-13 37-34 44l42 51h-42l-37-46h-14v46h-35zm35 29v40h25c16 0 24-7 24-20 0-13-8-20-24-20z"/>
+  <text x="92" y="258" fill="url(#word)" font-family="Inter,Segoe UI,sans-serif" font-size="88" font-weight="800">ReliaForge</text>
+  <text x="98" y="339" fill="#89a79c" font-family="Inter,Segoe UI,sans-serif" font-size="34">Small plugins. Clear boundaries.</text>
+  <text x="98" y="407" fill="#45d4a0" font-family="ui-monospace,Consolas,monospace" font-size="23">Python runtime · typed contracts · optional React console</text>
+</svg>
