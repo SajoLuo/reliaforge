@@ -43,6 +43,26 @@ function homeActionLinks(markdown) {
   ))
 }
 
+function homePreviewLinks(markdown) {
+  return [...markdown.matchAll(/^\s+href:\s+(.+)$/gm)].map((match) => normalizePublicUrl(
+    match[1].trim().replace(/^\/zh\//, "/"),
+  ))
+}
+
+function frontmatterStructure(markdown) {
+  const frontmatter = markdown.match(/^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/)?.[1]
+  if (!frontmatter) return []
+
+  return frontmatter.split(/\r?\n/).flatMap((line) => {
+    if (line.trim().length === 0) return []
+    const indentation = line.match(/^\s*/)?.[0].length ?? 0
+    const trimmed = line.trim()
+    const listItem = trimmed.startsWith("- ")
+    const property = (listItem ? trimmed.slice(2) : trimmed).split(":", 1)[0]
+    return [`${indentation}:${listItem ? "-" : ""}${property}`]
+  })
+}
+
 function arraysEqual(left, right) {
   return JSON.stringify(left) === JSON.stringify(right)
 }
@@ -75,8 +95,16 @@ export function checkLocaleParity(sourceRoot) {
     if (!arraysEqual(publicLinks(english), publicLinks(chinese))) {
       findings.push({ rule: "public-link", path: relativePath })
     }
-    if (relativePath === "index.md" && !arraysEqual(homeActionLinks(english), homeActionLinks(chinese))) {
-      findings.push({ rule: "home-action", path: relativePath })
+    if (relativePath === "index.md") {
+      if (!arraysEqual(homeActionLinks(english), homeActionLinks(chinese))) {
+        findings.push({ rule: "home-action", path: relativePath })
+      }
+      if (!arraysEqual(frontmatterStructure(english), frontmatterStructure(chinese))) {
+        findings.push({ rule: "home-frontmatter-structure", path: relativePath })
+      }
+      if (!arraysEqual(homePreviewLinks(english), homePreviewLinks(chinese))) {
+        findings.push({ rule: "home-preview", path: relativePath })
+      }
     }
   }
 

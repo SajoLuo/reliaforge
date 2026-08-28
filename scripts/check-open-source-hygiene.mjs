@@ -6,6 +6,16 @@ const IGNORED_DIRECTORIES = new Set([".git", "node_modules", "dist", "coverage",
 const SAFE_EMAIL_DOMAINS = new Set(["example.com", "users.noreply.github.com"])
 const EXACT_ALLOWLIST = [
   {
+    rule: "binary-file",
+    path: "docs/public/mark.png",
+    reason: "reviewed public ReliaForge brand asset",
+  },
+  {
+    rule: "binary-file",
+    path: "docs/public/console-preview.png",
+    reason: "reviewed public ReliaForge console capture",
+  },
+  {
     rule: "nonpublic-email",
     path: "package-lock.json",
     reason: "third-party npm registry deprecation metadata",

@@ -3,40 +3,44 @@ import { expect, test } from "@playwright/test"
 test("landing page exposes the project boundary and primary destinations", async ({ page }) => {
   await page.goto("./")
 
-  await expect(page.getByRole("heading", { name: "ReliaForge", level: 1 })).toBeVisible()
-  await expect(page.getByText("A platform, not a preselected tool catalog")).toBeVisible()
+  await expect(page.getByRole("heading", { name: /Small plugins/, level: 1 })).toBeVisible()
+  await expect(page.getByText("One runtime. Independent plugins")).toBeVisible()
   await expect(page.getByRole("link", { name: "Explore the demo" })).toHaveAttribute(
     "href",
     "https://sajoluo.github.io/reliaforge-frontend/",
   )
-  await expect(page.getByRole("link", { name: "Backend source" })).toHaveAttribute(
+  await expect(page.getByRole("link", { name: "Read the guide" })).toHaveAttribute(
     "href",
-    "https://github.com/SajoLuo/reliaforge-backend",
+    "/reliaforge/guide/getting-started.html",
   )
-  await expect(page.getByRole("link", { name: "Frontend source" })).toHaveAttribute(
+  await expect(page.locator(".VPHomeHero .actions a")).toHaveCount(2)
+  await expect(page.getByRole("link", { name: "Open the read-only ReliaForge demo" })).toHaveAttribute(
     "href",
-    "https://github.com/SajoLuo/reliaforge-frontend",
+    "https://sajoluo.github.io/reliaforge-frontend/",
   )
+  await expect(page.getByRole("img", { name: "ReliaForge console showing runtime health and the example plugin catalog" })).toBeVisible()
 })
 
 test("Chinese landing page exposes equivalent localized destinations", async ({ page }) => {
   await page.goto("./zh/")
 
   await expect(page.locator("html")).toHaveAttribute("lang", "zh-CN")
-  await expect(page.getByRole("heading", { name: "ReliaForge", level: 1 })).toBeVisible()
-  await expect(page.getByText("一个平台，而非预先选定的工具目录")).toBeVisible()
+  await expect(page.getByRole("heading", { name: /小巧插件/, level: 1 })).toBeVisible()
+  await expect(page.getByText("一个运行时，多个独立插件")).toBeVisible()
   await expect(page.getByRole("link", { name: "体验在线演示" })).toHaveAttribute(
     "href",
     "https://sajoluo.github.io/reliaforge-frontend/#/zh/",
   )
-  await expect(page.getByRole("link", { name: "后端源码" })).toHaveAttribute(
+  await expect(page.getByRole("link", { name: "阅读指南" })).toHaveAttribute(
     "href",
-    "https://github.com/SajoLuo/reliaforge-backend",
+    "/reliaforge/zh/guide/getting-started.html",
   )
-  await expect(page.getByRole("link", { name: "前端源码" })).toHaveAttribute(
+  await expect(page.locator(".VPHomeHero .actions a")).toHaveCount(2)
+  await expect(page.getByRole("link", { name: "打开只读版 ReliaForge 在线演示" })).toHaveAttribute(
     "href",
-    "https://github.com/SajoLuo/reliaforge-frontend",
+    "https://sajoluo.github.io/reliaforge-frontend/#/zh/",
   )
+  await expect(page.getByRole("img", { name: "展示运行时健康状态与示例插件目录的 ReliaForge 控制台" })).toBeVisible()
 })
 
 test("guide navigation works under the GitHub Pages base path", async ({ page }) => {
