@@ -52,11 +52,11 @@ hero:
   actions:
     - theme: brand
       text: Explore the demo
-      link: https://sajoluo.github.io/reliaforge-frontend/
+      link: https://demo.reliaforge.dev/
 heroPreview:
   src: /console-preview.png
   alt: Console preview
-  href: https://sajoluo.github.io/reliaforge-frontend/
+  href: https://demo.reliaforge.dev/
   label: Open the demo
 features:
   - title: Small plugins
@@ -71,7 +71,7 @@ hero:
   actions:
     - theme: brand
       text: 体验在线演示
-      link: https://sajoluo.github.io/reliaforge-frontend/#/zh/
+      link: https://demo.reliaforge.dev/#/zh/
 heroPreview:
   src: /console-preview.png
   alt: 控制台预览

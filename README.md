@@ -5,8 +5,8 @@
 This repository is the public project home and documentation site for ReliaForge, a lightweight
 platform for assembling operations tools as lifecycle-managed Python plugins.
 
-- Documentation: <https://sajoluo.github.io/reliaforge/>
-- Read-only demo: <https://sajoluo.github.io/reliaforge-frontend/>
+- Documentation: <https://reliaforge.dev/>
+- Read-only demo: <https://demo.reliaforge.dev/>
 - Backend runtime: <https://github.com/SajoLuo/reliaforge-backend>
 - Optional console: <https://github.com/SajoLuo/reliaforge-frontend>
 
@@ -19,7 +19,7 @@ npm ci
 npm run dev
 ```
 
-Open `http://127.0.0.1:5173/reliaforge/`.
+Open `http://127.0.0.1:5173/`.
 
 ## Verification
 

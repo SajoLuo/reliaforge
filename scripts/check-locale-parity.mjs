@@ -29,8 +29,8 @@ function codeBlocks(markdown) {
 
 function normalizePublicUrl(url) {
   return url
-    .replace("https://sajoluo.github.io/reliaforge-frontend/#/zh/", "https://sajoluo.github.io/reliaforge-frontend/")
-    .replace("https://sajoluo.github.io/reliaforge/zh/", "https://sajoluo.github.io/reliaforge/")
+    .replace("https://demo.reliaforge.dev/#/zh/", "https://demo.reliaforge.dev/")
+    .replace("https://reliaforge.dev/zh/", "https://reliaforge.dev/")
 }
 
 function publicLinks(markdown) {

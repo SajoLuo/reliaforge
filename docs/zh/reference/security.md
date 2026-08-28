@@ -33,7 +33,7 @@ ReliaForge 将公开观察与特权管理分离；当生产信任边界配置不
 前端不保存 API 密钥，也不发送跨域凭据。构建变量属于公开资源。生产代理在服务端认证操作者并
 注入身份。
 
-[在线演示](https://sajoluo.github.io/reliaforge-frontend/#/zh/)没有后端，不发送管理请求，也不提供
+[在线演示](https://demo.reliaforge.dev/#/zh/)没有后端，不发送管理请求，也不提供
 生命周期操作。
 
 ## 插件信任

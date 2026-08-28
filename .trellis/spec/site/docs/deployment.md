@@ -18,7 +18,7 @@ npm run test:e2e
 npm run check:hygiene
 ```
 
-The public base is `/reliaforge/`; generated output is `docs/.vitepress/dist`.
+The public base is `/` on `reliaforge.dev`; generated output is `docs/.vitepress/dist`.
 
 ### 3. Contracts
 
@@ -44,8 +44,8 @@ The public base is `/reliaforge/`; generated output is `docs/.vitepress/dist`.
 
 ### 5. Good / Base / Bad Cases
 
-- Good: `/reliaforge/guide/architecture.html` switches to
-  `/reliaforge/zh/guide/architecture.html` and both reload directly.
+- Good: `/guide/architecture.html` switches to `/zh/guide/architecture.html` and both reload
+  directly.
 - Base: a Markdown-only edit updates both locale files and passes build, parity, and hygiene.
 - Bad: browser-language redirects, committed build output, a generated-output branch, runtime
   secrets, analytics, hosted search, or a cross-repository build.

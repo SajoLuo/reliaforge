@@ -1,6 +1,6 @@
 import { defineConfig } from "vitepress"
 
-const siteUrl = "https://sajoluo.github.io/reliaforge/"
+const siteUrl = "https://reliaforge.dev/"
 
 const englishSidebar = [
   {
@@ -56,7 +56,7 @@ export default defineConfig({
   lang: "en-US",
   title: "ReliaForge",
   description: "A lightweight platform for lifecycle-managed operations plugins.",
-  base: "/reliaforge/",
+  base: "/",
   locales: {
     root: {
       label: "English",
@@ -75,7 +75,7 @@ export default defineConfig({
           { text: "指南", link: "/zh/guide/getting-started" },
           { text: "架构", link: "/zh/guide/architecture" },
           { text: "安全", link: "/zh/reference/security" },
-          { text: "在线演示", link: "https://sajoluo.github.io/reliaforge-frontend/#/zh/" },
+          { text: "在线演示", link: "https://demo.reliaforge.dev/#/zh/" },
         ],
         sidebar: chineseSidebar,
         search: {
@@ -142,7 +142,7 @@ export default defineConfig({
     ["meta", { property: "og:description", content: "Small plugins. Clear boundaries. Reliable operations tooling." }],
     ["meta", { property: "og:image", content: `${siteUrl}console-preview.png` }],
     ["meta", { name: "twitter:card", content: "summary_large_image" }],
-    ["link", { rel: "icon", type: "image/png", href: "/reliaforge/mark.png" }],
+    ["link", { rel: "icon", type: "image/png", href: "/mark.png" }],
   ],
   themeConfig: {
     logo: "/mark.png",
@@ -151,7 +151,7 @@ export default defineConfig({
       { text: "Guide", link: "/guide/getting-started" },
       { text: "Architecture", link: "/guide/architecture" },
       { text: "Security", link: "/reference/security" },
-      { text: "Demo", link: "https://sajoluo.github.io/reliaforge-frontend/" },
+      { text: "Demo", link: "https://demo.reliaforge.dev/" },
     ],
     sidebar: englishSidebar,
     socialLinks: [

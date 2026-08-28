@@ -38,7 +38,7 @@ npm run build
 npm run build:demo
 ```
 
-该产物面向 `/reliaforge-frontend/`，使用 Hash 路由并选择经过校验的静态数据。它专为 GitHub
+该产物面向 `demo.reliaforge.dev` 的根路径，使用 Hash 路由并选择经过校验的静态数据。它专为 GitHub
 Pages 设计，绝不能作为生命周期写操作或后端部署正常运行的证据。
 
 ## 生产信任边界
