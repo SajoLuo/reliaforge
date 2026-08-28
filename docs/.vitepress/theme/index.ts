@@ -24,8 +24,8 @@ function HeroPreview() {
     h("img", {
       src: withBase(preview.src),
       alt: preview.alt,
-      width: 972,
-      height: 677,
+      width: 2560,
+      height: 1600,
     }),
   ])
 }

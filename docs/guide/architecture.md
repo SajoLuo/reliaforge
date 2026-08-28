@@ -1,63 +1,58 @@
 # Architecture
 
-ReliaForge separates platform orchestration from plugin domain logic and keeps browser behavior
-downstream of backend-owned contracts.
+ReliaForge runs several Python plugins behind one backend. The optional React console calls that
+backend; it does not make lifecycle decisions itself.
 
 ```text
 React console (optional)
-  -> typed API adapter
-  -> versioned management API
+  -> management API
        -> plugin manager
-            -> manifest loader
-            -> dependency resolver
-            -> lifecycle state machine
-            -> plugin records and health snapshots
-            -> controlled plugin context
-                 -> provider-owned services
-                 -> failure-isolating event delivery
-       -> plugin routers -> plugin services
+            -> reads plugin metadata
+            -> checks dependencies
+            -> starts and stops plugins
+            -> records status and health
+       -> plugin API routes
 ```
 
-## Discovery and isolation
+## Loading plugins
 
-Discovery reads every manifest before executing extension code. Once the complete graph is valid,
-entry points are imported in dependency order. Import or construction failures become stable,
-secret-safe load records. Dependents are blocked while unrelated branches and the management plane
-remain visible.
+The backend reads every `manifest.json` before importing plugin code. It checks IDs, versions,
+missing dependencies, and dependency cycles, then imports valid plugins in dependency order.
 
-## Runtime ownership
+If a plugin cannot load, the backend records a safe error and blocks plugins that depend on it.
+Unrelated plugins and the management API remain available.
 
-The manager owns lifecycle transitions and provides each plugin a scoped context. That context owns
-service registrations and event subscriptions, so stop and failure cleanup do not remove resources
-belonging to another plugin.
+## Starting and stopping plugins
 
-Initialization and startup are deadline-bounded. Health checks read in-memory state and must not
-repair or probe external systems. The event bus is local and failure-isolating; it is not a durable
-workflow queue.
+The plugin manager owns every state change. Each plugin receives a context for the services and
+event subscriptions it creates. When a plugin stops or fails, ReliaForge removes only that plugin's
+resources.
 
-## HTTP boundary
+Initialization and startup have time limits. Health checks return an in-memory snapshot and must
+not repair or probe external systems. Events stay inside the process and are not a durable job
+queue.
 
-The platform exposes liveness, readiness, status, catalog, detail, and lifecycle endpoints. Public
-reads do not perform repair writes. Plugin-owned routes and lifecycle changes share one management
-authentication boundary that plugin manifests cannot disable.
+## API and console
 
-The optional web console follows this flow:
+The backend exposes liveness, readiness, platform status, plugin details, health, and lifecycle
+operations. Read endpoints do not change plugin state. Plugin routes and lifecycle operations use
+the same management authentication.
+
+The console has two data sources:
 
 ```text
-Page -> feature hook -> typed API facade -> selected adapter
-                                      ├─ HTTP in a real deployment
-                                      └─ static snapshots in the hosted demo
+Page -> hook -> API client -> HTTP backend
+                         \-> saved demo data
 ```
 
-Both adapters use the same domain types and runtime response validation. The demo adapter changes
-only the source of data, not pages, routing semantics, or lifecycle policy.
+The online demo uses saved data and has no write actions. A normal deployment uses the HTTP backend.
 
-## Deployment shape
+## Production deployment
 
-A production console should be served from the same trusted boundary as the backend or behind a
-reverse proxy that authenticates the operator and injects server-side identity. The browser stores
-no management secret and sends no cross-origin credentials by default.
+Serve the console and backend from the same trusted origin when possible. Otherwise, place both
+behind a reverse proxy that authenticates the operator. Keep management secrets on the server, not
+in browser build variables.
 
 See the backend's detailed
 [architecture document](https://github.com/SajoLuo/reliaforge-backend/blob/main/docs/architecture.md)
-for runtime invariants and failure behavior.
+for state transitions and failure handling.

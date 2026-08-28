@@ -2,12 +2,12 @@
 layout: home
 
 hero:
-  name: Open-source SRE platform
-  text: Small plugins.<br>Clear boundaries.
-  tagline: Turn scripts, runbooks, and internal tools into Python plugins. ReliaForge handles discovery, dependencies, settings, health, and lifecycle so your team can focus on the operation itself.
+  name: Open-source tools for SRE teams
+  text: Turn scripts into<br>managed plugins.
+  tagline: Run Python scripts and runbooks behind one backend. ReliaForge loads them, starts dependencies in order, reports health, and gives operators one place to inspect and control them.
   image:
     src: /console-preview.png
-    alt: ReliaForge console with runtime health and example plugins
+    alt: ReliaForge console showing plugin status and health
   actions:
     - theme: brand
       text: Try the demo
@@ -18,35 +18,35 @@ hero:
 
 heroPreview:
   src: /console-preview.png
-  alt: ReliaForge console with runtime health and example plugins
+  alt: ReliaForge console showing plugin status and health
   href: https://demo.reliaforge.dev/
   label: Open the read-only ReliaForge demo
 
 features:
-  - title: Reuse the platform layer
-    details: Start from the scaffold instead of rebuilding settings, health checks, dependencies, and lifecycle management for every tool.
-  - title: Ship plugins independently
-    details: Keep each plugin's manifest, settings, routes, and tests together. A failed plugin load does not stop unrelated plugins or the management plane.
-  - title: Make dependencies explicit
-    details: Declare dependencies and capabilities before code loads so the runtime can validate compatibility and startup order.
-  - title: Give teams one convention
-    details: A shared scaffold and contract keep plugin structure, configuration, lifecycle, and API behavior predictable across contributors.
+  - title: Start with a working structure
+    details: Generate a plugin with settings, health checks, API routes, lifecycle hooks, and tests already in place.
+  - title: Know what is running
+    details: See which plugins loaded, whether they are healthy, what they depend on, and which actions are currently available.
+  - title: Keep failures contained
+    details: A broken plugin blocks its dependents while unrelated plugins and the management API stay available.
+  - title: Add tools without adding services
+    details: Put several small operations tools behind one Python backend and one optional console.
 ---
 
 <section class="home-section">
 
 <p class="section-kicker">WHY RELIAFORGE</p>
 
-## Build the tool. Reuse the platform
+## Stop rebuilding the same operations service
 
-Internal operations tools often repeat the same plumbing: configuration, health endpoints,
-dependency checks, authentication, lifecycle actions, and a UI. ReliaForge provides that shared
-layer. Each plugin owns the operation-specific behavior.
+Small internal tools often need the same supporting code: configuration, health checks, dependency
+handling, authentication, start and stop controls, and a UI. ReliaForge provides that shared code.
+Each plugin contains the operation your team needs.
 
 <div class="boundary-grid">
-  <div class="boundary-card"><strong>Platform</strong>Provides one scaffold and shared discovery, settings, health, dependency, lifecycle, and API behavior.</div>
-  <div class="boundary-card"><strong>Plugin</strong>Owns one operations capability and keeps its manifest, code, routes, and tests together.</div>
-  <div class="boundary-card"><strong>Team</strong>Ships plugins through one repeatable structure instead of building a new service around every tool.</div>
+  <div class="boundary-card"><strong>Backend</strong>Loads plugins, checks dependencies, manages start and stop, and exposes the API.</div>
+  <div class="boundary-card"><strong>Plugin</strong>Contains one operations task, its settings, API routes, health check, and tests.</div>
+  <div class="boundary-card"><strong>Console</strong>Shows current status and the actions the backend allows.</div>
 </div>
 
 </section>
@@ -57,10 +57,8 @@ layer. Each plugin owns the operation-specific behavior.
 
 ## Explore the console before installing anything
 
-The [online demo](https://demo.reliaforge.dev/) uses the production React interface with static data
-from two example plugins. It is read-only: explore runtime status, the plugin catalog, and plugin
-details, then run ReliaForge locally when you need lifecycle actions.
-
-Ready to build a plugin? Follow the [local quick start](./guide/getting-started.md).
+The [online demo](https://demo.reliaforge.dev/) shows the production React interface with saved data
+from two example plugins. It has no backend and cannot start or stop plugins. Follow the
+[local quick start](./guide/getting-started.md) when you want to try those operations.
 
 </section>

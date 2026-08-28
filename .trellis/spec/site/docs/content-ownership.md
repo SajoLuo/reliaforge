@@ -15,6 +15,13 @@ the backend's canonical guide. They do not mirror it.
 ## Rules
 
 - Verify technical claims against the current public code, tests, or repository-local docs.
+- Write for an SRE trying to understand, deploy, or operate the current release. Lead with the
+  answer or next action, use familiar operational terms, and explain ReliaForge-specific names on
+  first use.
+- Describe the product as it exists now. Omit extraction history, rejected alternatives, internal
+  predecessors, and compatibility statements about formats that are not part of this project.
+- State a limitation only when it prevents a likely mistake, unsafe deployment, false success, or
+  unsupported operation.
 - Prefer a stable public GitHub link over copied detailed prose.
 - Keep the landing page focused on product boundary and first actions; put explanations in guide or
   reference pages.

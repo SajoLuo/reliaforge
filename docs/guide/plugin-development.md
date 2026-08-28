@@ -1,27 +1,26 @@
 # Develop a plugin
 
-The backend owns the normative plugin contract. This page gives the shortest safe path into that
-contract; keep the detailed backend guide open while implementing a real plugin.
+Start with the backend scaffold, then replace its example service with your operations task.
 
-## Start from the scaffold
+## Generate the files
 
 ```bash
 reliaforge-scaffold sample_tool --destination ./local-plugins
 ```
 
-The generated directory includes a manifest, plugin class, settings, service, router, models, and a
-focused test. Keep those responsibilities separate.
+The command creates `manifest.json`, a plugin class, settings, service, API router, models, and a
+focused test.
 
-## Declare the public contract
+## Describe the plugin
 
-A manifest describes identity and compatibility without importing Python code:
+`manifest.json` tells ReliaForge what to load and what the plugin provides:
 
 ```json
 {
   "id": "sample_tool",
   "name": "Sample Tool",
   "version": "0.1.0",
-  "description": "A neutral example capability.",
+  "description": "Returns a sample message.",
   "api_version": "v1",
   "entrypoint": "plugin:Plugin",
   "dependencies": [],
@@ -30,29 +29,25 @@ A manifest describes identity and compatibility without importing Python code:
 }
 ```
 
-Plugin IDs use lowercase snake case. Dependencies are objects with an ID and accepted SemVer range.
-Capabilities are unique dotted names. Settings schema and lifecycle actions are runtime-derived and
-must not be handwritten into the manifest.
+Plugin IDs use lowercase snake case. Dependencies contain a plugin ID and an accepted SemVer range.
+Capabilities are unique dotted names for services that other plugins can request. Define
+configuration fields in the Python settings class, not in this file.
 
-## Keep layers narrow
+## Put code in the right place
 
-- The plugin class coordinates lifecycle hooks and context-owned resources.
-- The service contains domain behavior and does not import FastAPI.
-- The router validates and translates HTTP concerns.
-- The settings class declares environment-backed configuration once.
-- Tests prove lifecycle cleanup, health behavior, routes, and capability contracts.
+- The plugin class starts and stops the plugin.
+- The service performs the operations task and does not import FastAPI.
+- The router validates HTTP input and calls the service.
+- The settings class reads environment-based configuration.
+- Tests cover startup, cleanup, health, API routes, and shared services.
 
-## Respect runtime boundaries
+Move blocking work off the event loop and give it a timeout. Keep health checks fast and free of
+side effects. Use `SecretStr` for secrets and never put secret values in defaults, logs, schemas, or
+errors.
 
-- Move blocking work into a bounded execution domain with an explicit timeout.
-- Keep health checks synchronous, side-effect-free snapshots.
-- Resolve another plugin through a caller-owned protocol instead of importing its implementation.
-- Treat events as local notifications, not a durable queue.
-- Use `SecretStr` for secret inputs and never include them in defaults, logs, schemas, or errors.
-
-Read the complete
-[plugin development contract](https://github.com/SajoLuo/reliaforge-backend/blob/main/docs/plugin-development.md)
-and use the bundled
+The backend's complete
+[plugin development guide](https://github.com/SajoLuo/reliaforge-backend/blob/main/docs/plugin-development.md)
+documents every supported field and hook. The bundled
 [`demo`](https://github.com/SajoLuo/reliaforge-backend/tree/main/reliaforge/plugins/demo) and
 [`runbook`](https://github.com/SajoLuo/reliaforge-backend/tree/main/reliaforge/plugins/runbook)
-plugins as executable examples.
+plugins are working examples.
