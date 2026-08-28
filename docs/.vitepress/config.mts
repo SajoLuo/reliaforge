@@ -55,20 +55,20 @@ const chineseSidebar = [
 export default defineConfig({
   lang: "en-US",
   title: "ReliaForge",
-  description: "A lightweight platform for lifecycle-managed operations plugins.",
+  description: "An open-source, pluggable operations platform for SRE teams.",
   base: "/",
   locales: {
     root: {
       label: "English",
       lang: "en-US",
       title: "ReliaForge",
-      description: "A lightweight platform for lifecycle-managed operations plugins.",
+      description: "An open-source, pluggable operations platform for SRE teams.",
     },
     zh: {
       label: "简体中文",
       lang: "zh-CN",
       title: "ReliaForge",
-      description: "一个用于管理运维插件生命周期的轻量级平台。",
+      description: "面向 SRE 团队的开源可插拔运维平台。",
       link: "/zh/",
       themeConfig: {
         nav: [
@@ -139,8 +139,8 @@ export default defineConfig({
     ["meta", { name: "theme-color", content: "#0b0d0c", media: "(prefers-color-scheme: dark)" }],
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:title", content: "ReliaForge" }],
-    ["meta", { property: "og:description", content: "Small plugins. Clear boundaries. Reliable operations tooling." }],
-    ["meta", { property: "og:image", content: `${siteUrl}console-preview.png` }],
+    ["meta", { property: "og:description", content: "Build and ship operations tools as Python plugins without rebuilding the platform layer." }],
+    ["meta", { property: "og:image", content: `${siteUrl}og-preview.png` }],
     ["meta", { name: "twitter:card", content: "summary_large_image" }],
     ["link", { rel: "icon", type: "image/png", href: "/mark.png" }],
   ],

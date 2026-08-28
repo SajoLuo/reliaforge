@@ -4,12 +4,12 @@ test("landing page exposes the project boundary and primary destinations", async
   await page.goto("./")
 
   await expect(page.getByRole("heading", { name: /Small plugins/, level: 1 })).toBeVisible()
-  await expect(page.getByText("One runtime. Independent plugins")).toBeVisible()
-  await expect(page.getByRole("link", { name: "Explore the demo" })).toHaveAttribute(
+  await expect(page.getByText("Build the tool. Reuse the platform")).toBeVisible()
+  await expect(page.getByRole("link", { name: "Try the demo" })).toHaveAttribute(
     "href",
     "https://demo.reliaforge.dev/",
   )
-  await expect(page.getByRole("link", { name: "Read the guide" })).toHaveAttribute(
+  await expect(page.getByRole("link", { name: "Get started" })).toHaveAttribute(
     "href",
     "/guide/getting-started.html",
   )
@@ -18,7 +18,7 @@ test("landing page exposes the project boundary and primary destinations", async
     "href",
     "https://demo.reliaforge.dev/",
   )
-  await expect(page.getByRole("img", { name: "ReliaForge console showing runtime health and the example plugin catalog" })).toBeVisible()
+  await expect(page.getByRole("img", { name: "ReliaForge console with runtime health and example plugins" })).toBeVisible()
 })
 
 test("Chinese landing page exposes equivalent localized destinations", async ({ page }) => {
@@ -26,26 +26,26 @@ test("Chinese landing page exposes equivalent localized destinations", async ({ 
 
   await expect(page.locator("html")).toHaveAttribute("lang", "zh-CN")
   await expect(page.getByRole("heading", { name: /小巧插件/, level: 1 })).toBeVisible()
-  await expect(page.getByText("一个运行时，多个独立插件")).toBeVisible()
-  await expect(page.getByRole("link", { name: "体验在线演示" })).toHaveAttribute(
+  await expect(page.getByText("业务逻辑各自开发，平台能力统一复用")).toBeVisible()
+  await expect(page.getByRole("link", { name: "在线体验" })).toHaveAttribute(
     "href",
     "https://demo.reliaforge.dev/#/zh/",
   )
-  await expect(page.getByRole("link", { name: "阅读指南" })).toHaveAttribute(
+  await expect(page.getByRole("link", { name: "开始使用" })).toHaveAttribute(
     "href",
     "/zh/guide/getting-started.html",
   )
   await expect(page.locator(".VPHomeHero .actions a")).toHaveCount(2)
-  await expect(page.getByRole("link", { name: "打开只读版 ReliaForge 在线演示" })).toHaveAttribute(
+  await expect(page.getByRole("link", { name: "打开 ReliaForge 只读在线演示" })).toHaveAttribute(
     "href",
     "https://demo.reliaforge.dev/#/zh/",
   )
-  await expect(page.getByRole("img", { name: "展示运行时健康状态与示例插件目录的 ReliaForge 控制台" })).toBeVisible()
+  await expect(page.getByRole("img", { name: "ReliaForge 控制台，显示运行状态和示例插件列表" })).toBeVisible()
 })
 
 test("guide navigation works from the custom-domain root", async ({ page }) => {
   await page.goto("./")
-  await page.getByRole("link", { name: "Read the guide" }).click()
+  await page.getByRole("link", { name: "Get started" }).click()
 
   await expect(page).toHaveURL(/\/guide\/getting-started(?:\.html)?$/)
   await expect(page.getByRole("heading", { name: "Getting started", level: 1 })).toBeVisible()

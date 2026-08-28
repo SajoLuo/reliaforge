@@ -2,8 +2,10 @@
 
 [简体中文](README_CN.md)
 
-This repository is the public project home and documentation site for ReliaForge, a lightweight
-platform for assembling operations tools as lifecycle-managed Python plugins.
+This repository is the public project home and documentation site for ReliaForge, an open-source,
+pluggable operations platform for SRE teams. It turns operations tools into lifecycle-managed
+Python plugins so teams can reuse common platform capabilities and ship new tooling through one
+consistent structure.
 
 - Documentation: <https://reliaforge.dev/>
 - Read-only demo: <https://demo.reliaforge.dev/>

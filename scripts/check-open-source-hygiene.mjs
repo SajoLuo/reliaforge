@@ -16,6 +16,11 @@ const EXACT_ALLOWLIST = [
     reason: "reviewed public ReliaForge console capture",
   },
   {
+    rule: "binary-file",
+    path: "docs/public/og-preview.png",
+    reason: "reviewed public ReliaForge social preview",
+  },
+  {
     rule: "nonpublic-email",
     path: "package-lock.json",
     reason: "third-party npm registry deprecation metadata",

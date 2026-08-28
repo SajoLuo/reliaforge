@@ -3,16 +3,15 @@
 ## Target
 
 - Approved direction: `Geist Grid`, based on the selected Image Gen reference.
-- Final same-viewport capture: `reliaforge-site-final-same-viewport.png`.
-- Real console asset:
-  `docs/public/console-preview.png`
+- Product position: a pluggable SRE platform that lets teams reuse the platform layer, ship
+  operations plugins faster, and follow one development convention.
+- Real console asset: `docs/public/console-preview.png` (2560 x 1600, lossless PNG).
+- Social preview asset: `docs/public/og-preview.png` (1200 x 630, lossless PNG).
 
 ## Comparison
 
-The approved reference and final implementation were reviewed together at effectively the same
-viewport (1487 x 1058 reference, 1473 x 1047 browser capture). The implementation retains the
-reference hierarchy: compact navigation, three-line proposition, two primary actions, a real
-console preview, and a four-column value band.
+The approved reference and implementation retain the same hierarchy: compact navigation, a short
+product proposition, two primary actions, a real console preview, and a four-column value band.
 
 Two visible mismatches found in the first comparison were fixed before the final capture:
 
@@ -35,12 +34,29 @@ The approved reference and final layout were re-inspected together in
 `%TEMP%/reliaforge-site-design-comparison-review.png`. The fixes above do not alter geometry,
 content hierarchy, preview cropping, or responsive composition.
 
+The positioning and product copy were reviewed again after the public release candidate was
+deployed. The refresh made three content-level corrections:
+
+- Made plugin delivery, reuse of shared platform capabilities, and team conventions the primary
+  story; implementation details remain supporting evidence.
+- Replaced abstract platform language with concrete SRE tasks: scripts, runbooks, dependencies,
+  settings, health checks, and lifecycle operations.
+- Described failure isolation narrowly and accurately. ReliaForge keeps unrelated plugins and the
+  management plane available after a plugin load failure; it does not claim sandbox isolation for
+  trusted in-process plugins.
+
+The previous preview was a compressed 957 x 667 JPEG stored with a `.png` extension. It was
+replaced with a real 2560 x 1600 PNG captured from the public demo, plus a dedicated 1200 x 630
+social preview that no longer relies on a cropped product screenshot.
+
 ## Browser verification
 
-- English desktop: final composition, CTA destinations, product-preview link, search, locale menu,
-  and navigation verified.
-- Simplified Chinese mobile: localized hero and CTA destinations verified at 390 CSS pixels; page
-  width remained 375/375 with no horizontal overflow.
+- English and Simplified Chinese desktop: composition, copy hierarchy, CTA destinations,
+  product-preview link, search, locale menu, and navigation verified at 1440 CSS pixels.
+- English and Simplified Chinese mobile: localized hero, preview, value band, and CTA destinations
+  verified at 390 CSS pixels with no horizontal overflow.
+- Preview sharpness: the 2560 x 1600 source renders at 895 x 559 on desktop and 340 x 213 on
+  mobile, preserving more than 2x source resolution in both layouts.
 - Dark theme: the native appearance switch changed the document to `color-scheme: dark`; the final
   page remained 1425/1425 with no horizontal overflow.
 - Mobile navigation, corresponding locale routes, guide reloads, and both locale roots passed the

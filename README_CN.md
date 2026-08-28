@@ -2,8 +2,9 @@
 
 [English](README.md)
 
-本仓库是 ReliaForge 的公开项目主页和文档站。ReliaForge 是一个轻量级平台，用于将运维工具
-组织为具有生命周期管理能力的 Python 插件。
+本仓库是 ReliaForge 的公开项目主页和文档站。ReliaForge 是一个面向 SRE 团队的开源可插拔
+运维平台：把运维工具组织为带生命周期管理的 Python 插件，让团队复用通用平台能力，并用
+一套统一结构更快交付新工具。
 
 - 文档：<https://reliaforge.dev/zh/>
 - 只读在线演示：<https://demo.reliaforge.dev/#/zh/>
