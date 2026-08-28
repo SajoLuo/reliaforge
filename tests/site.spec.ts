@@ -3,8 +3,8 @@ import { expect, test } from "@playwright/test"
 test("landing page exposes the project boundary and primary destinations", async ({ page }) => {
   await page.goto("./")
 
-  await expect(page.getByRole("heading", { name: /Small plugins/, level: 1 })).toBeVisible()
-  await expect(page.getByText("Build the tool. Reuse the platform")).toBeVisible()
+  await expect(page.getByRole("heading", { name: /Turn scripts into/, level: 1 })).toBeVisible()
+  await expect(page.getByText("Stop rebuilding the same operations service")).toBeVisible()
   await expect(page.getByRole("link", { name: "Try the demo" })).toHaveAttribute(
     "href",
     "https://demo.reliaforge.dev/",
@@ -18,15 +18,15 @@ test("landing page exposes the project boundary and primary destinations", async
     "href",
     "https://demo.reliaforge.dev/",
   )
-  await expect(page.getByRole("img", { name: "ReliaForge console with runtime health and example plugins" })).toBeVisible()
+  await expect(page.getByRole("img", { name: "ReliaForge console showing plugin status and health" })).toBeVisible()
 })
 
 test("Chinese landing page exposes equivalent localized destinations", async ({ page }) => {
   await page.goto("./zh/")
 
   await expect(page.locator("html")).toHaveAttribute("lang", "zh-CN")
-  await expect(page.getByRole("heading", { name: /小巧插件/, level: 1 })).toBeVisible()
-  await expect(page.getByText("业务逻辑各自开发，平台能力统一复用")).toBeVisible()
+  await expect(page.getByRole("heading", { name: /把脚本变成/, level: 1 })).toBeVisible()
+  await expect(page.getByText("不再为每个运维工具重建一套服务")).toBeVisible()
   await expect(page.getByRole("link", { name: "在线体验" })).toHaveAttribute(
     "href",
     "https://demo.reliaforge.dev/#/zh/",
@@ -40,7 +40,7 @@ test("Chinese landing page exposes equivalent localized destinations", async ({ 
     "href",
     "https://demo.reliaforge.dev/#/zh/",
   )
-  await expect(page.getByRole("img", { name: "ReliaForge 控制台，显示运行状态和示例插件列表" })).toBeVisible()
+  await expect(page.getByRole("img", { name: "ReliaForge 控制台，显示插件状态和健康情况" })).toBeVisible()
 })
 
 test("guide navigation works from the custom-domain root", async ({ page }) => {

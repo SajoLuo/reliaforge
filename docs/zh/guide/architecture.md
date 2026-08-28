@@ -1,56 +1,53 @@
 # 架构
 
-ReliaForge 将平台编排与插件领域逻辑分离，并确保浏览器行为始终服从后端拥有的契约。
+ReliaForge 用一个后端运行多个 Python 插件。可选的 React 控制台调用这个后端，但不自行决定
+插件应该如何启停。
 
 ```text
 React console (optional)
-  -> typed API adapter
-  -> versioned management API
+  -> management API
        -> plugin manager
-            -> manifest loader
-            -> dependency resolver
-            -> lifecycle state machine
-            -> plugin records and health snapshots
-            -> controlled plugin context
-                 -> provider-owned services
-                 -> failure-isolating event delivery
-       -> plugin routers -> plugin services
+            -> reads plugin metadata
+            -> checks dependencies
+            -> starts and stops plugins
+            -> records status and health
+       -> plugin API routes
 ```
 
-## 发现与隔离
+## 加载插件
 
-发现阶段会在执行扩展代码前读取所有清单。完整依赖图通过验证后，才会按依赖顺序导入入口点。
-导入或构造失败会转化为稳定且不泄露敏感信息的加载记录。依赖该插件的插件会被阻止，其他无关
-分支和管理平面仍保持可见。
+导入插件代码之前，后端会先读取所有 `manifest.json`，检查 ID、版本、缺失依赖和循环依赖，
+再按依赖顺序导入有效插件。
 
-## 运行时所有权
+如果某个插件无法加载，后端会记录一条不泄露敏感信息的错误，并阻止依赖它的插件。无关插件
+和管理 API 仍然可用。
 
-管理器拥有生命周期转换，并为每个插件提供作用域明确的上下文。该上下文拥有服务注册和事件订阅，
-因此停止或失败清理不会移除其他插件的资源。
+## 启动和停止插件
 
-初始化和启动受截止时间约束。健康检查只读取内存状态，不能修复系统，也不能探测外部系统。
-事件总线只在本地传递并隔离失败；它不是持久化工作流队列。
+插件管理器负责所有状态变化。每个插件都会拿到一个上下文，用来登记它创建的服务和事件订阅。
+插件停止或失败时，ReliaForge 只清理该插件自己的资源。
 
-## HTTP 边界
+初始化和启动都有时间限制。健康检查只返回内存中的当前状态，不能修复或探测外部系统。事件只在
+当前进程中传递，不是持久任务队列。
 
-平台提供存活、就绪、状态、目录、详情和生命周期端点。公开读取不会执行修复写操作。插件自有路由
-和生命周期变更共享同一个管理认证边界，插件清单不能禁用该边界。
+## API 与控制台
 
-可选 Web 控制台遵循以下调用链：
+后端提供存活、就绪、平台状态、插件详情、健康状态和启停操作。读取接口不会改变插件状态。
+插件 API 路由和启停操作使用同一套管理认证。
+
+控制台有两种数据来源：
 
 ```text
-Page -> feature hook -> typed API facade -> selected adapter
-                                      ├─ HTTP in a real deployment
-                                      └─ static snapshots in the hosted demo
+Page -> hook -> API client -> HTTP backend
+                         \-> saved demo data
 ```
 
-两种适配器使用相同的领域类型和运行时响应校验。演示适配器只改变数据来源，不改变页面、路由语义
-或生命周期策略。
+在线演示使用保存的数据，不提供写操作。正常部署则使用 HTTP 后端。
 
-## 部署形态
+## 生产部署
 
-生产控制台应与后端部署在同一个可信边界内，或位于能够认证操作者并在服务端注入身份的反向代理
-之后。浏览器不保存管理密钥，默认也不发送跨域凭据。
+条件允许时，让控制台和后端使用同一个可信来源。否则，把两者放在能够认证操作者的反向代理
+之后。管理密钥应保留在服务端，不能放入浏览器构建变量。
 
-运行时不变式和失败行为详见后端的
+状态变化和故障处理详见后端的
 [架构文档](https://github.com/SajoLuo/reliaforge-backend/blob/main/docs/architecture.md)。

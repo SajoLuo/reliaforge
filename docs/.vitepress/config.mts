@@ -17,8 +17,8 @@ const englishSidebar = [
     text: "Reference",
     items: [
       { text: "Security model", link: "/reference/security" },
-      { text: "Repository ownership", link: "/reference/repositories" },
-      { text: "Compatibility", link: "/reference/compatibility" },
+      { text: "Repositories", link: "/reference/repositories" },
+      { text: "Versions and API", link: "/reference/compatibility" },
     ],
   },
   {
@@ -42,8 +42,8 @@ const chineseSidebar = [
     text: "参考",
     items: [
       { text: "安全模型", link: "/zh/reference/security" },
-      { text: "仓库职责", link: "/zh/reference/repositories" },
-      { text: "兼容性", link: "/zh/reference/compatibility" },
+      { text: "仓库", link: "/zh/reference/repositories" },
+      { text: "版本与 API", link: "/zh/reference/compatibility" },
     ],
   },
   {
@@ -55,20 +55,20 @@ const chineseSidebar = [
 export default defineConfig({
   lang: "en-US",
   title: "ReliaForge",
-  description: "An open-source, pluggable operations platform for SRE teams.",
+  description: "Run scripts and runbooks as managed Python plugins.",
   base: "/",
   locales: {
     root: {
       label: "English",
       lang: "en-US",
       title: "ReliaForge",
-      description: "An open-source, pluggable operations platform for SRE teams.",
+      description: "Run scripts and runbooks as managed Python plugins.",
     },
     zh: {
       label: "简体中文",
       lang: "zh-CN",
       title: "ReliaForge",
-      description: "面向 SRE 团队的开源可插拔运维平台。",
+      description: "把脚本和 Runbook 作为可管理的 Python 插件运行。",
       link: "/zh/",
       themeConfig: {
         nav: [
@@ -139,7 +139,7 @@ export default defineConfig({
     ["meta", { name: "theme-color", content: "#0b0d0c", media: "(prefers-color-scheme: dark)" }],
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:title", content: "ReliaForge" }],
-    ["meta", { property: "og:description", content: "Build and ship operations tools as Python plugins without rebuilding the platform layer." }],
+    ["meta", { property: "og:description", content: "Run scripts and runbooks as managed Python plugins." }],
     ["meta", { property: "og:image", content: `${siteUrl}og-preview.png` }],
     ["meta", { name: "twitter:card", content: "summary_large_image" }],
     ["link", { rel: "icon", type: "image/png", href: "/mark.png" }],

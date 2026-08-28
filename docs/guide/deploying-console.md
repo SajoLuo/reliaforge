@@ -1,11 +1,11 @@
 # Deploy the console
 
-The React console is optional. It consumes public catalog/status reads and authenticated lifecycle
-writes but does not carry an operator credential of its own.
+The React console is optional. It reads plugin status from the backend and sends authenticated
+start, stop, and restart requests.
 
-## Local cross-origin development
+## Local development
 
-Copy the example environment file and set the backend origin:
+Copy the example configuration and start the development server:
 
 ```bash
 cp .env.example .env
@@ -13,44 +13,40 @@ npm ci
 npm run dev
 ```
 
-The only supported browser build variable is `VITE_RELIAFORGE_API_URL`. The frontend appends
-`/api/v1`; when the variable is absent it uses same-origin `/api/v1`.
+Set `VITE_RELIAFORGE_API_URL` to the backend origin when the frontend and backend use different
+origins. The frontend appends `/api/v1`. If the variable is absent, it calls same-origin `/api/v1`.
 
-The backend CORS allowlist must contain the exact development frontend origin. Wildcards are
-rejected, and production should use a same-origin reverse-proxy boundary instead.
+Add the exact frontend origin to the backend CORS allowlist for local development.
 
-## Normal production build
+## Production build
 
 ```bash
 npm ci
 npm run build
 ```
 
-The normal artifact assumes origin-root hosting and uses browser history routing. A reverse proxy
-should serve the static files, route application navigation to `index.html`, proxy `/api/v1`, and
-authenticate management requests on the server side.
+Serve the generated static files from the origin root. Configure the web server to return
+`index.html` for application routes, proxy `/api/v1` to the backend, and authenticate management
+requests on the server.
 
-Do not place a shared secret or API key in a `VITE_*` variable. Vite embeds those values into public
-browser assets.
+Never put API keys or shared secrets in a `VITE_*` variable. Those values are included in public
+browser files.
 
-## Hosted read-only demo build
-
-The frontend repository also owns a separate build:
+## Read-only demo build
 
 ```bash
 npm run build:demo
 ```
 
-That artifact targets the root of `demo.reliaforge.dev`, uses hash routing, and selects validated
-static data.
-It is designed for GitHub Pages and must never be used as evidence that lifecycle writes or a backend
-deployment are working.
+This build uses hash routes and saved example data. It is the build used by
+`demo.reliaforge.dev`; it has no backend and cannot prove that lifecycle operations work.
 
-## Production trust boundary
+## Production authentication
 
-The backend's proxy authentication mode requires a trusted direct peer, an injected operator identity,
-and a strong shared secret held by the server-side proxy. Invalid production configuration prevents
-startup. See [Security model](../reference/security.md) before exposing a console.
+In proxy authentication mode, the backend accepts operator identity only from a configured trusted
+peer that also supplies the shared proxy secret. An invalid production configuration prevents the
+backend from starting.
 
-Frontend-specific contribution and verification commands remain in the
+Read the [security model](../reference/security.md) before exposing the console. Frontend build and
+test commands are in the
 [frontend repository](https://github.com/SajoLuo/reliaforge-frontend).

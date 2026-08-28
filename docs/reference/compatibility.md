@@ -1,34 +1,26 @@
-# Compatibility and versioning
+# Versions and API
 
-ReliaForge starts with a deliberately small public compatibility surface.
+This page lists the version rules used by the current release.
 
-## Plugin API version
+## Plugin API
 
-The initial runtime accepts `api_version: "v1"`. Unsupported versions are rejected during manifest
-validation before entry-point import.
+Set `api_version` to `"v1"` in `manifest.json`. The backend rejects other values before it imports
+the plugin's Python entry point.
 
 ## Plugin dependencies
 
-Dependencies use an object containing a plugin ID and accepted SemVer range. The complete graph is
-validated for missing providers, incompatible versions, and cycles before imports begin.
+Each dependency contains a plugin ID and an accepted SemVer range. Before importing plugins, the
+backend checks for missing providers, incompatible versions, and dependency cycles.
 
-Provider plugin SemVer is the capability compatibility boundary. Service registrations do not carry
-a second independent version.
+The provider plugin's SemVer describes the version of the services it publishes.
 
 ## Management API
 
-The console consumes `/api/v1`. Runtime response parsers reject unknown lifecycle states, health
-states, actions, or malformed summaries at the browser boundary. Backend model and frontend parser
-changes should land together and pass the cross-repository contract check.
+The console uses `/api/v1`. When an API response changes, update the backend model and frontend
+parser together, then run the cross-repository API check.
 
-## Settings
+## Settings and restart
 
-Plugin settings use the canonical `RELIAFORGE_<PLUGIN_ID>_` prefix and `__` nested delimiter. Restart
-reconstructs settings for the already loaded plugin; it does not reload Python source or a manifest
-from disk.
-
-## No legacy plugin promise
-
-The public project began with the current manifest, dependency, capability, and Settings contracts.
-It does not carry compatibility shims for earlier private plugin formats. Compatibility is added only
-for a published public contract with real adopters and an explicit migration path.
+Plugin environment variables use the `RELIAFORGE_<PLUGIN_ID>_` prefix and `__` for nested fields.
+Restart reads settings again for the loaded plugin. Restart the backend process after changing
+Python source or `manifest.json`.
