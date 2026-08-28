@@ -135,16 +135,17 @@ export default defineConfig({
   cleanUrls: false,
   sitemap: { hostname: siteUrl },
   head: [
-    ["meta", { name: "theme-color", content: "#071b16" }],
+    ["meta", { name: "theme-color", content: "#fbfbfa", media: "(prefers-color-scheme: light)" }],
+    ["meta", { name: "theme-color", content: "#0b0d0c", media: "(prefers-color-scheme: dark)" }],
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:title", content: "ReliaForge" }],
     ["meta", { property: "og:description", content: "Small plugins. Clear boundaries. Reliable operations tooling." }],
-    ["meta", { property: "og:image", content: `${siteUrl}social-preview.svg` }],
+    ["meta", { property: "og:image", content: `${siteUrl}console-preview.png` }],
     ["meta", { name: "twitter:card", content: "summary_large_image" }],
-    ["link", { rel: "icon", type: "image/svg+xml", href: "/reliaforge/mark.svg" }],
+    ["link", { rel: "icon", type: "image/png", href: "/reliaforge/mark.png" }],
   ],
   themeConfig: {
-    logo: "/mark.svg",
+    logo: "/mark.png",
     siteTitle: "ReliaForge",
     nav: [
       { text: "Guide", link: "/guide/getting-started" },

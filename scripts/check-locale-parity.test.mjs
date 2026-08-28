@@ -43,3 +43,50 @@ test("reports heading and code-example drift", () => {
     { rule: "code-example", path: "guide/start.md" },
   ])
 })
+
+test("checks bilingual home frontmatter and the real preview destination", () => {
+  const root = makeDocs()
+  const english = `---
+layout: home
+hero:
+  actions:
+    - theme: brand
+      text: Explore the demo
+      link: https://sajoluo.github.io/reliaforge-frontend/
+heroPreview:
+  src: /console-preview.png
+  alt: Console preview
+  href: https://sajoluo.github.io/reliaforge-frontend/
+  label: Open the demo
+features:
+  - title: Small plugins
+    details: Focused contracts.
+---
+
+# Home
+`
+  const chinese = `---
+layout: home
+hero:
+  actions:
+    - theme: brand
+      text: 体验在线演示
+      link: https://sajoluo.github.io/reliaforge-frontend/#/zh/
+heroPreview:
+  src: /console-preview.png
+  alt: 控制台预览
+  href: https://example.com/wrong-preview
+features:
+  - title: 小巧插件
+---
+
+# 首页
+`
+  fs.writeFileSync(path.join(root, "index.md"), english)
+  fs.writeFileSync(path.join(root, "zh", "index.md"), chinese)
+
+  assert.deepEqual(checkLocaleParity(root), [
+    { rule: "home-frontmatter-structure", path: "index.md" },
+    { rule: "home-preview", path: "index.md" },
+  ])
+})

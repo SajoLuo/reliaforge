@@ -2,12 +2,12 @@
 layout: home
 
 hero:
-  name: ReliaForge
-  text: Small plugins. Clear boundaries.
-  tagline: Build inspectable operations tooling on a typed Python runtime, then manage it through an optional, generic web console.
+  name: Open source plugin runtime
+  text: Small plugins.<br>Clear boundaries.<br>Generic console.
+  tagline: Build inspectable operations plugins on a typed Python runtime, then discover and manage them through an optional web console.
   image:
-    src: /mark.svg
-    alt: ReliaForge
+    src: /console-preview.png
+    alt: ReliaForge console showing runtime health and the example plugin catalog
   actions:
     - theme: brand
       text: Explore the demo
@@ -15,57 +15,51 @@ hero:
     - theme: alt
       text: Read the guide
       link: /guide/getting-started
-    - theme: alt
-      text: Backend source
-      link: https://github.com/SajoLuo/reliaforge-backend
-    - theme: alt
-      text: Frontend source
-      link: https://github.com/SajoLuo/reliaforge-frontend
+
+heroPreview:
+  src: /console-preview.png
+  alt: ReliaForge console showing runtime health and the example plugin catalog
+  href: https://sajoluo.github.io/reliaforge-frontend/
+  label: Open the read-only ReliaForge demo
 
 features:
-  - icon: 🧩
-    title: Manifest-first plugins
-    details: Identity, dependencies, capabilities, and compatibility are validated before plugin code is imported.
-  - icon: 🔁
-    title: Explicit lifecycle
-    details: Initialization, start, health, stop, and dependency ordering stay visible and testable.
-  - icon: 🧭
-    title: Generic console
-    details: The optional React UI discovers plugins from the API instead of carrying a hard-coded business catalog.
-  - icon: 🔐
-    title: Deliberate trust boundary
-    details: Public reads stay separate from authenticated management actions, and the browser holds no management secret.
-  - icon: 🧰
-    title: Typed extension points
-    details: Python Settings, capability protocols, and versioned API models make plugin contracts inspectable.
-  - icon: 🪶
-    title: Intentionally small
-    details: No bundled monitoring stack, durable queue, plugin marketplace, or hidden infrastructure dependency.
+  - title: Small plugins
+    details: Each manifest declares identity, capabilities, and dependencies before plugin code is imported.
+  - title: Clear boundaries
+    details: Public reads stay separate from authenticated actions, while every plugin keeps a focused contract.
+  - title: Generic console
+    details: One optional interface discovers plugins from the API instead of hard-coding a business catalog.
+  - title: Bilingual by default
+    details: English and Simplified Chinese stay aligned across the site, console, and public messages.
 ---
 
 <section class="home-section">
 
-## A platform, not a preselected tool catalog
+<p class="section-kicker">THE OPERATING MODEL</p>
 
-ReliaForge supplies the runtime contracts that small operations plugins usually rebuild: discovery,
+## One runtime. Independent plugins
+
+ReliaForge supplies the contracts that small operations plugins usually rebuild: discovery,
 dependency validation, lifecycle management, typed settings, health snapshots, service sharing, and
 a versioned management API. Your plugins supply the domain behavior.
 
 <div class="boundary-grid">
-  <div class="boundary-card"><strong>Backend</strong>Python runtime, manifests, dependency graph, lifecycle, API, and plugin scaffold.</div>
-  <div class="boundary-card"><strong>Frontend</strong>An optional catalog and detail console generated from backend-owned contracts.</div>
-  <div class="boundary-card"><strong>Your plugins</strong>Focused capabilities and routes that remain independently understandable.</div>
+  <div class="boundary-card"><strong>Runtime</strong>Validates manifests, resolves dependencies, and makes lifecycle state inspectable.</div>
+  <div class="boundary-card"><strong>Console</strong>Turns backend-owned contracts into an optional catalog and detail interface.</div>
+  <div class="boundary-card"><strong>Your plugins</strong>Keep capabilities and routes focused, explicit, and independently understandable.</div>
 </div>
 
 </section>
 
-<section class="home-section">
+<section class="home-section home-demo">
 
-## Try the real interface safely
+<p class="section-kicker">READ-ONLY DEMO</p>
+
+## The real console, with safe public data
 
 The [online demo](https://sajoluo.github.io/reliaforge-frontend/) runs the production React interface
-against validated static snapshots of ReliaForge's two neutral example plugins. It is clearly
-read-only, sends no management API requests, and does not pretend to execute lifecycle transitions.
+against validated static snapshots of two neutral example plugins. It sends no management API
+requests and never pretends to execute lifecycle transitions.
 
 For the complete runtime, follow the [local quick start](./guide/getting-started.md).
 

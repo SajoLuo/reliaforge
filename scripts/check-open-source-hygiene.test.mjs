@@ -34,6 +34,18 @@ test("scanner rejects binary and non-example environment files", () => {
   ])
 })
 
+test("scanner allows only the canonical public image assets", () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), "reliaforge-site-scan-"))
+  fs.mkdirSync(path.join(root, "docs", "public"), { recursive: true })
+  fs.writeFileSync(path.join(root, "docs", "public", "mark.png"), Buffer.from([0x89, 0x50, 0x00, 0x47]))
+  fs.writeFileSync(path.join(root, "docs", "public", "console-preview.png"), Buffer.from([0x89, 0x50, 0x00, 0x47]))
+  fs.writeFileSync(path.join(root, "docs", "public", "other.png"), Buffer.from([0x89, 0x50, 0x00, 0x47]))
+
+  assert.deepEqual(scanTree(root), [
+    { rule: "binary-file", path: "docs/public/other.png", line: 0 },
+  ])
+})
+
 test("scanner ignores generated root VitePress cache but scans documentation sources", () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "reliaforge-site-scan-"))
   const brand = ["op", "po"].join("")
