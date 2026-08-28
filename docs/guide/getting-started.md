@@ -1,8 +1,8 @@
 # Getting started
 
-ReliaForge is split into a Python runtime and an optional React console. Start with the backend to
-exercise real plugin discovery and lifecycle behavior; open the hosted demo when you only want to
-inspect the interface.
+This guide takes you from a clean checkout to a running ReliaForge instance, two working example
+plugins, and a scaffold for your first plugin. If you only want to see the interface, open the
+[hosted demo](https://demo.reliaforge.dev/) instead.
 
 ## Requirements
 
@@ -10,7 +10,7 @@ inspect the interface.
 - Node.js 20 or newer and npm 10 or newer for frontend development;
 - Git.
 
-## Run the backend
+## 1. Start the runtime
 
 Clone the public runtime and create an isolated environment:
 
@@ -26,7 +26,11 @@ reliaforge
 
 On Windows PowerShell, activate the environment with `.venv\Scripts\Activate.ps1`.
 
-The development server binds to `127.0.0.1` by default. Inspect the runtime and catalog:
+The development server binds to `127.0.0.1` by default.
+
+## 2. Check what the platform loaded
+
+Query the runtime, plugin list, and the two bundled examples:
 
 ```bash
 curl http://127.0.0.1:8000/api/v1/status
@@ -35,9 +39,11 @@ curl http://127.0.0.1:8000/api/v1/plugins/demo/greeting
 curl http://127.0.0.1:8000/api/v1/plugins/runbook/preview
 ```
 
-The bundled examples perform no network, database, filesystem, or command side effects.
+The first two requests show whether the runtime started and which plugins loaded. The remaining
+requests call a greeting plugin and a runbook-preview plugin. These examples perform no network,
+database, filesystem, or command side effects.
 
-## Create a plugin
+## 3. Create a plugin from the scaffold
 
 Use the scaffold rather than copying an example by hand:
 
@@ -46,10 +52,14 @@ reliaforge-scaffold sample_tool --destination ./local-plugins
 RELIAFORGE_PLUGIN_PATHS=./local-plugins reliaforge
 ```
 
-The generated package follows the same manifest, settings, lifecycle, router, and test boundaries as
-the bundled examples. Continue with [Develop a plugin](./plugin-development.md).
+The scaffold creates the manifest, settings, lifecycle hooks, router, service, models, and tests in
+the structure ReliaForge expects. `RELIAFORGE_PLUGIN_PATHS` tells the runtime where to discover your
+local plugin without copying it into the ReliaForge source tree.
 
-## Run the optional console
+Continue with [Develop a plugin](./plugin-development.md) when you are ready to replace the starter
+behavior with a real operations task.
+
+## 4. Add the console when you need it
 
 In another terminal:
 
@@ -61,16 +71,16 @@ npm ci
 npm run dev
 ```
 
-Open `http://127.0.0.1:5530`. Build-time browser variables are public and must never contain API
-keys or proxy secrets.
+Open `http://127.0.0.1:5530`. The console is optional and works through the runtime API. Anything
+injected into the browser build can be read by users, so never put API keys or proxy secrets there.
 
-## Choose the right experience
+## 5. Choose your next step
 
-| Experience | Backend | Lifecycle writes | Purpose |
+| Experience | Data and runtime | Can start or stop plugins | Best for |
 | --- | --- | --- | --- |
-| [Hosted demo](https://demo.reliaforge.dev/) | Static snapshots | No | Explore the real console immediately |
-| Local development | Local Python process | Development-only boundary | Build and test plugins |
-| Production deployment | Trusted server-side boundary | Authenticated and revalidated | Operate an approved plugin workspace |
+| [Hosted demo](https://demo.reliaforge.dev/) | Saved example data | No | Looking around before installing anything |
+| Local development | Your local Python process | Yes, in development mode | Building and testing plugins |
+| Production deployment | Your approved server-side runtime | Yes, behind management authentication | Running the team's plugin workspace |
 
 Before a production deployment, read the [security model](../reference/security.md) and
 [console deployment](./deploying-console.md) guidance.
