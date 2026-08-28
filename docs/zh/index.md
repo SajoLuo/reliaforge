@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: 体验在线演示
-      link: https://sajoluo.github.io/reliaforge-frontend/#/zh/
+      link: https://demo.reliaforge.dev/#/zh/
     - theme: alt
       text: 阅读指南
       link: /zh/guide/getting-started
@@ -19,7 +19,7 @@ hero:
 heroPreview:
   src: /console-preview.png
   alt: 展示运行时健康状态与示例插件目录的 ReliaForge 控制台
-  href: https://sajoluo.github.io/reliaforge-frontend/#/zh/
+  href: https://demo.reliaforge.dev/#/zh/
   label: 打开只读版 ReliaForge 在线演示
 
 features:
@@ -56,7 +56,7 @@ ReliaForge 提供小型运维插件往往需要重复建设的契约：发现、
 
 ## 用安全公开数据体验真实控制台
 
-[在线演示](https://sajoluo.github.io/reliaforge-frontend/#/zh/)运行真实的 React 界面，
+[在线演示](https://demo.reliaforge.dev/#/zh/)运行真实的 React 界面，
 数据来自两个中立示例插件的已校验静态快照。它不会发送管理 API 请求，也不会假装执行
 生命周期转换。
 

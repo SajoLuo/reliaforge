@@ -68,7 +68,7 @@ keys or proxy secrets.
 
 | Experience | Backend | Lifecycle writes | Purpose |
 | --- | --- | --- | --- |
-| [Hosted demo](https://sajoluo.github.io/reliaforge-frontend/) | Static snapshots | No | Explore the real console immediately |
+| [Hosted demo](https://demo.reliaforge.dev/) | Static snapshots | No | Explore the real console immediately |
 | Local development | Local Python process | Development-only boundary | Build and test plugins |
 | Production deployment | Trusted server-side boundary | Authenticated and revalidated | Operate an approved plugin workspace |
 

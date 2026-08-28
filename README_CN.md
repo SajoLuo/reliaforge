@@ -5,8 +5,8 @@
 本仓库是 ReliaForge 的公开项目主页和文档站。ReliaForge 是一个轻量级平台，用于将运维工具
 组织为具有生命周期管理能力的 Python 插件。
 
-- 文档：<https://sajoluo.github.io/reliaforge/zh/>
-- 只读在线演示：<https://sajoluo.github.io/reliaforge-frontend/#/zh/>
+- 文档：<https://reliaforge.dev/zh/>
+- 只读在线演示：<https://demo.reliaforge.dev/#/zh/>
 - 后端运行时：<https://github.com/SajoLuo/reliaforge-backend>
 - 可选控制台：<https://github.com/SajoLuo/reliaforge-frontend>
 
@@ -19,7 +19,7 @@ npm ci
 npm run dev
 ```
 
-打开 `http://127.0.0.1:5173/reliaforge/zh/`。
+打开 `http://127.0.0.1:5173/zh/`。
 
 ## 验证
 

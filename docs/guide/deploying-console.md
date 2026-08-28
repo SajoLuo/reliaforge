@@ -41,7 +41,8 @@ The frontend repository also owns a separate build:
 npm run build:demo
 ```
 
-That artifact targets `/reliaforge-frontend/`, uses hash routing, and selects validated static data.
+That artifact targets the root of `demo.reliaforge.dev`, uses hash routing, and selects validated
+static data.
 It is designed for GitHub Pages and must never be used as evidence that lifecycle writes or a backend
 deployment are working.
 

@@ -38,7 +38,7 @@ prevents startup rather than silently enabling anonymous management.
 The frontend stores no API secret and sends no cross-origin credentials. Build variables are public
 assets. A production proxy authenticates the operator and injects identity on the server side.
 
-The [online demo](https://sajoluo.github.io/reliaforge-frontend/) has no backend, sends no management
+The [online demo](https://demo.reliaforge.dev/) has no backend, sends no management
 request, and exposes no lifecycle actions.
 
 ## Plugin trust

@@ -11,7 +11,7 @@ hero:
   actions:
     - theme: brand
       text: Explore the demo
-      link: https://sajoluo.github.io/reliaforge-frontend/
+      link: https://demo.reliaforge.dev/
     - theme: alt
       text: Read the guide
       link: /guide/getting-started
@@ -19,7 +19,7 @@ hero:
 heroPreview:
   src: /console-preview.png
   alt: ReliaForge console showing runtime health and the example plugin catalog
-  href: https://sajoluo.github.io/reliaforge-frontend/
+  href: https://demo.reliaforge.dev/
   label: Open the read-only ReliaForge demo
 
 features:
@@ -57,7 +57,7 @@ a versioned management API. Your plugins supply the domain behavior.
 
 ## The real console, with safe public data
 
-The [online demo](https://sajoluo.github.io/reliaforge-frontend/) runs the production React interface
+The [online demo](https://demo.reliaforge.dev/) runs the production React interface
 against validated static snapshots of two neutral example plugins. It sends no management API
 requests and never pretends to execute lifecycle transitions.
 

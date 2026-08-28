@@ -15,7 +15,7 @@ and GitHub Pages workflow.
   code.
 - Check the current public source or test that supports every technical claim.
 - Search existing pages before adding a new concept or navigation item.
-- Preserve the `/reliaforge/` project base and static-hosting contract.
+- Preserve the root custom-domain base and static-hosting contract.
 - Preserve English at the root and the complete Simplified Chinese mirror under `/zh/`.
 - Plan desktop and mobile proof for any user-visible change.
 

@@ -5,7 +5,7 @@ export default defineConfig({
   timeout: 30_000,
   retries: process.env.CI ? 2 : 0,
   use: {
-    baseURL: "http://127.0.0.1:47173/reliaforge/",
+    baseURL: "http://127.0.0.1:47173/",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
   },
@@ -15,7 +15,7 @@ export default defineConfig({
   ],
   webServer: {
     command: "npm run build && npm run preview -- --port=47173",
-    url: "http://127.0.0.1:47173/reliaforge/",
+    url: "http://127.0.0.1:47173/",
     reuseExistingServer: !process.env.CI,
   },
 })
