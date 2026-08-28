@@ -32,9 +32,10 @@ fields shown in the console. Secret values and secret defaults are not returned 
 
 ## The backend decides which actions are available
 
-Each plugin response includes `available_actions`. The backend calculates this list from the
-plugin's current state and dependencies. The console displays the list; the API still authenticates
-and checks every request when an operator clicks an action.
+Each plugin record returned by the management list and detail APIs includes `available_actions`.
+The backend calculates this list from the plugin's current state and dependencies. The console
+displays the list; the API still authenticates and checks every request when an operator clicks an
+action.
 
 Plugins run as trusted Python code inside the backend process. Only install plugins you have
 reviewed.
