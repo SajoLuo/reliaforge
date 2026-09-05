@@ -1,17 +1,14 @@
 # Architecture
 
-ReliaForge runs several Python plugins behind one backend. The optional React console calls that
-backend; it does not make lifecycle decisions itself.
+ReliaForge hosts Python services as plugins in one backend process. The platform manages loading,
+dependencies, configuration, authentication, and lifecycle. Each plugin implements its service and
+API; the optional React console manages plugin status and start and stop controls.
 
 ```text
-React console (optional)
-  -> management API
-       -> plugin manager
-            -> reads plugin metadata
-            -> checks dependencies
-            -> starts and stops plugins
-            -> records status and health
-       -> plugin API routes
+React console -> management API -> plugin manager
+                                       -> loads and starts plugins
+                                       -> stops plugins and reads health
+API clients   -> plugin API routes -> plugin service code
 ```
 
 ## Loading plugins
@@ -19,14 +16,16 @@ React console (optional)
 The backend reads every `manifest.json` before importing plugin code. It checks IDs, versions,
 missing dependencies, and dependency cycles, then imports valid plugins in dependency order.
 
-If a plugin cannot load, the backend records a safe error and blocks plugins that depend on it.
+Invalid manifests or dependency graphs prevent the backend from starting. After validation, if a
+plugin's code cannot load, the backend records a safe error and blocks plugins that depend on it.
 Unrelated plugins and the management API remain available.
 
 ## Starting and stopping plugins
 
 The plugin manager owns every state change. Each plugin receives a context for the services and
-event subscriptions it creates. When a plugin stops or fails, ReliaForge removes only that plugin's
-resources.
+event subscriptions it creates. The plugin's stop hook releases its own clients and background work,
+including after incomplete initialization. The platform then removes its service registrations and
+event subscriptions.
 
 Initialization and startup have time limits. Health checks return an in-memory snapshot and must
 not repair or probe external systems. Events stay inside the process and are not a durable job
@@ -49,9 +48,9 @@ The online demo uses saved data and has no write actions. A normal deployment us
 
 ## Production deployment
 
-Serve the console and backend from the same trusted origin when possible. Otherwise, place both
-behind a reverse proxy that authenticates the operator. Keep management secrets on the server, not
-in browser build variables.
+For production, serve the console and backend through a trusted reverse proxy that authenticates
+users. Use the same protocol, host, and port for both where possible. If they use different origins,
+also configure the allowed browser origins. Keep management secrets on the server.
 
 See the backend's detailed
 [architecture document](https://github.com/SajoLuo/reliaforge-backend/blob/main/docs/architecture.md)

@@ -1,53 +1,55 @@
 # Develop a plugin
 
-Start with the backend scaffold, then replace its example service with your operations task.
+Start with a Python function your team needs, then give it an API through ReliaForge. The backend's
+[step-by-step tutorial](https://github.com/SajoLuo/reliaforge-backend/blob/main/docs/plugin-development.md)
+uses a function that looks up a service's owning team. It includes complete files you can copy.
 
-## Generate the files
+## What you will build
+
+After following the tutorial, you can call:
 
 ```bash
-reliaforge-scaffold sample_tool --destination ./local-plugins
+curl "http://127.0.0.1:8000/api/v1/plugins/sample_tool/owner?service_name=payments"
 ```
 
-The command creates `manifest.json`, a plugin class, settings, service, API router, models, and a
-focused test.
-
-## Describe the plugin
-
-`manifest.json` tells ReliaForge what to load and what the plugin provides:
+The response is:
 
 ```json
-{
-  "id": "sample_tool",
-  "name": "Sample Tool",
-  "version": "0.1.0",
-  "description": "Returns a sample message.",
-  "api_version": "v1",
-  "entrypoint": "plugin:Plugin",
-  "dependencies": [],
-  "capabilities": ["sample_tool.message"],
-  "frontend": { "category": "Examples" }
-}
+{"service": "payments", "team": "payments-ops"}
 ```
 
-Plugin IDs use lowercase snake case. Dependencies contain a plugin ID and an accepted SemVer range.
-Capabilities are unique dotted names for services that other plugins can request. Define
-configuration fields in the Python settings class, not in this file.
+The example uses two preset records so you can try it locally without connecting another system.
 
-## Put code in the right place
+## Which files do I change?
 
-- The plugin class starts and stops the plugin.
-- The service performs the operations task and does not import FastAPI.
-- The router validates HTTP input and calls the service.
-- The settings class reads environment-based configuration.
-- Tests cover startup, cleanup, health, API routes, and shared services.
+First follow [Getting started](./getting-started.md) to generate `sample_tool`. Then:
 
-Move blocking work off the event loop and give it a timeout. Keep health checks fast and free of
-side effects. Use `SecretStr` for secrets and never put secret values in defaults, logs, schemas, or
-errors.
+| Step | File or setting | What to do |
+| --- | --- | --- |
+| Add your function | `ownership.py` | Put the team lookup function here |
+| Add an API | `router.py` | Read the query parameter, call the function, and return JSON |
+| Load the plugin | `RELIAFORGE_PLUGIN_PATHS` | Point to the parent directory and restart the backend |
+| Share it with users | The plugin's `README.md` | Give them the URL, parameters, responses, and authentication instructions |
 
-The backend's complete
-[plugin development guide](https://github.com/SajoLuo/reliaforge-backend/blob/main/docs/plugin-development.md)
-documents every supported field and hook. The bundled
-[`demo`](https://github.com/SajoLuo/reliaforge-backend/tree/main/reliaforge/plugins/demo) and
-[`runbook`](https://github.com/SajoLuo/reliaforge-backend/tree/main/reliaforge/plugins/runbook)
-plugins are working examples.
+The generated plugin already handles startup and shutdown. You can keep those files for this
+example. See the [complete tutorial and runtime rules](https://github.com/SajoLuo/reliaforge-backend/blob/main/docs/plugin-development.md)
+for the code and for what changes when a tool owns clients or background tasks.
+
+## How do I know it works?
+
+Check the successful lookup, an unknown service, and the endpoint after stopping the plugin. They
+should return HTTP `200`, `404`, and `503`. Starting it again should restore the successful lookup.
+
+In local development, open `http://127.0.0.1:8000/api/v1/docs` to find and try the new endpoint.
+The console shows the plugin's status and start and stop controls.
+
+## Share the plugin
+
+Give the deployment maintainer the plugin directory, its Python dependency requirements, and a
+README. The maintainer installs those requirements, adds the directory to the backend's plugin
+search paths, and restarts the backend. The README should explain how users authenticate before
+calling the API in that deployment.
+
+The bundled [demo](https://github.com/SajoLuo/reliaforge-backend/tree/main/reliaforge/plugins/demo) and
+[runbook](https://github.com/SajoLuo/reliaforge-backend/tree/main/reliaforge/plugins/runbook) plugins
+also show how one plugin can call another plugin's shared Python service.

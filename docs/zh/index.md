@@ -2,9 +2,9 @@
 layout: home
 
 hero:
-  name: 面向 SRE 团队的开源工具
-  text: 把脚本变成<br>可管理的插件。
-  tagline: 用一个后端运行 Python 脚本和 Runbook。ReliaForge 负责加载插件、按依赖顺序启动、报告健康状态，并提供一个统一的查看和操作入口。
+  name: 面向 SRE 团队的插件式运维平台
+  text: 把运维工具，<br>做成插件。
+  tagline: 把团队使用的 Python 运维工具做成插件。ReliaForge 负责加载和读取配置，你可以在控制台查看状态、启动或停止插件。
   image:
     src: /console-preview.png
     alt: ReliaForge 控制台，显示插件状态和健康情况
@@ -23,29 +23,32 @@ heroPreview:
   label: 打开 ReliaForge 只读在线演示
 
 features:
-  - title: 从可运行的结构开始
-    details: 直接生成包含配置、健康检查、API 路由、启停逻辑和测试的插件。
+  - title: 从模板开始
+    details: 生成一个能运行的插件，加入你的 Python 代码，再把可调用的 API 交给团队。
   - title: 看清当前运行情况
     details: 查看哪些插件已加载、是否健康、依赖哪些插件，以及当前可以执行哪些操作。
-  - title: 把故障限制在局部
-    details: 插件故障会阻止依赖它的插件，但无关插件和管理 API 仍可使用。
-  - title: 增加工具，不增加服务
-    details: 把多个小型运维工具放到一个 Python 后端和一个可选控制台中运行。
+  - title: 复用其他插件的服务
+    details: 声明插件依赖，通过 Python 接口调用它提供的共享服务。
+  - title: 在一个地方管理插件
+    details: 由一个 Python 后端运行多个运维服务，通过可选控制台集中管理。
 ---
 
 <section class="home-section">
 
 <p class="section-kicker">为什么用 RELIAFORGE</p>
 
-## 不再为每个运维工具重建一套服务
+## 让团队用上你写的工具
 
-小型内部工具往往需要同样的配套代码：配置、健康检查、依赖处理、认证、启停操作和界面。
-ReliaForge 统一提供这些能力，每个插件只包含团队真正需要的运维任务。
+团队可能已经有一个能查出服务由哪个团队负责的函数，还有一个采集指标的程序。把它们做成插件，就可以
+使用同一个后端运行和管理。
+
+开发者提供工具的代码和 API。团队成员通过 API 或作者提供的界面使用工具；运维人员在控制台
+查看哪些插件正在运行，并按需启动或停止。
 
 <div class="boundary-grid">
-  <div class="boundary-card"><strong>后端</strong>加载插件、检查依赖、管理启停并提供 API。</div>
-  <div class="boundary-card"><strong>插件</strong>包含一项运维任务，以及它的配置、API 路由、健康检查和测试。</div>
-  <div class="boundary-card"><strong>控制台</strong>显示当前状态和后端允许执行的操作。</div>
+  <div class="boundary-card"><strong>后端</strong>加载插件、读取配置、检查插件间依赖，并负责启动和停止。</div>
+  <div class="boundary-card"><strong>插件</strong>放置工具的代码和 API，以及工具需要的准备和清理代码。</div>
+  <div class="boundary-card"><strong>控制台</strong>查看插件状态和健康详情，执行当前允许的操作。</div>
 </div>
 
 </section>
@@ -54,10 +57,9 @@ ReliaForge 统一提供这些能力，每个插件只包含团队真正需要的
 
 <p class="section-kicker">先看再装</p>
 
-## 安装之前，先看看控制台
+## 先看看控制台
 
-[在线演示](https://demo.reliaforge.dev/#/zh/)使用正式的 React 界面，展示两个示例插件的静态数据。
-它没有后端，不能启动或停止插件。如需体验这些操作，请跟着[本地快速开始](./guide/getting-started.md)
-运行完整环境。
+在[在线演示](https://demo.reliaforge.dev/#/zh/)中浏览两个示例插件。数据是预设的，可以查看页面，
+但不能启动或停止插件。要体验启停操作，请按照[本地快速开始](./guide/getting-started.md)运行。
 
 </section>

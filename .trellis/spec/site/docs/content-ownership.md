@@ -14,6 +14,13 @@ the backend's canonical guide. They do not mirror it.
 
 ## Rules
 
+- Position ReliaForge as a plugin-based operations platform. Developers package and provide their
+  own services through plugins. Runbooks are one possible plugin service, not the platform's
+  defining abstraction or a required built-in execution model.
+- Distinguish platform lifecycle controls, plugin HTTP APIs, and shared Python capabilities.
+  Explain the current directory-based onboarding path; do not imply a marketplace, online upload,
+  generic business-action console, or code hot reload.
+
 - Verify technical claims against the current public code, tests, or repository-local docs.
 - Write for an SRE trying to understand, deploy, or operate the current release. Lead with the
   answer or next action, use familiar operational terms, and explain ReliaForge-specific names on
@@ -32,6 +39,15 @@ the backend's canonical guide. They do not mirror it.
   names, and code examples canonical.
 - Treat roadmap items as evidence-gated possibilities unless code and release evidence already exist.
 - Never imply that the hosted demo has a backend or that ReliaForge sandboxes untrusted plugins.
+
+## Reader checks
+
+- Start onboarding with a concrete tool and show the files to edit, a request, its response, and
+  how to check failure. Link to the backend's runnable example instead of mirroring its code.
+- Avoid repeating the platform/plugin/runbook distinction on every page. Explain a distinction
+  where the reader needs it to act correctly.
+- Keep framework names and runtime internals out of the home page and demo notice unless they
+  help the reader make a decision. A failed status read must not claim the plugin is down.
 
 ## Avoid
 

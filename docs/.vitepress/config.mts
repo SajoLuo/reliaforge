@@ -55,20 +55,20 @@ const chineseSidebar = [
 export default defineConfig({
   lang: "en-US",
   title: "ReliaForge",
-  description: "Run scripts and runbooks as managed Python plugins.",
+  description: "A plugin-based operations platform for hosting and managing Python services.",
   base: "/",
   locales: {
     root: {
       label: "English",
       lang: "en-US",
       title: "ReliaForge",
-      description: "Run scripts and runbooks as managed Python plugins.",
+      description: "A plugin-based operations platform for hosting and managing Python services.",
     },
     zh: {
       label: "简体中文",
       lang: "zh-CN",
       title: "ReliaForge",
-      description: "把脚本和 Runbook 作为可管理的 Python 插件运行。",
+      description: "将 Python 服务以插件形式接入、运行和管理的运维平台。",
       link: "/zh/",
       themeConfig: {
         nav: [
@@ -139,7 +139,7 @@ export default defineConfig({
     ["meta", { name: "theme-color", content: "#0b0d0c", media: "(prefers-color-scheme: dark)" }],
     ["meta", { property: "og:type", content: "website" }],
     ["meta", { property: "og:title", content: "ReliaForge" }],
-    ["meta", { property: "og:description", content: "Run scripts and runbooks as managed Python plugins." }],
+    ["meta", { property: "og:description", content: "A plugin-based operations platform for hosting and managing Python services." }],
     ["meta", { property: "og:image", content: `${siteUrl}og-preview.png` }],
     ["meta", { name: "twitter:card", content: "summary_large_image" }],
     ["link", { rel: "icon", type: "image/png", href: "/mark.png" }],

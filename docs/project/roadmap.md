@@ -1,6 +1,7 @@
 # Roadmap
 
-ReliaForge currently provides:
+ReliaForge develops the shared platform for hosting operations services as plugins. Plugin authors
+choose their services and how users interact with them. The platform currently provides:
 
 - plugin discovery, dependency checks, and ordered startup;
 - start, stop, restart, and health reporting;
@@ -11,10 +12,12 @@ ReliaForge currently provides:
 
 ## Next priorities
 
-- build third-party plugins from the public scaffold and improve the parts that slow authors down;
-- publish deployment guides that have been reproduced in real environments;
-- improve error messages and examples from operator and contributor feedback;
-- define longer-term API support rules after public releases have real users.
+- document packaging, installation, and upgrade steps for independently developed service plugins;
+- let deployments select which plugins to load, including whether to load the examples;
+- make each plugin's API and usage instructions easier to find from the console;
+- record who requested each lifecycle operation and its result in structured logs;
+- publish a verified single-process deployment example and run frontend release checks against a
+  matching backend version.
 
 To discuss a concrete change, open an issue in the repository that owns it:
 

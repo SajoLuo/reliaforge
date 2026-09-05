@@ -18,7 +18,7 @@ not permission to perform the action. The backend authenticates and checks every
 ## Local development
 
 Anonymous management is available only in development or test mode while the backend is bound to a
-loopback address. Configure exact CORS origins. Use this mode on a trusted workstation, not on a
+loopback address. Configure exact CORS origins, including protocol, host, and port. Use this mode on a trusted workstation, not on a
 shared server.
 
 ## Production proxy authentication

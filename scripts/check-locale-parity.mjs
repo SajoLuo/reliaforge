@@ -31,6 +31,7 @@ function normalizePublicUrl(url) {
   return url
     .replace("https://demo.reliaforge.dev/#/zh/", "https://demo.reliaforge.dev/")
     .replace("https://reliaforge.dev/zh/", "https://reliaforge.dev/")
+    .replace(/^(https:\/\/github\.com\/SajoLuo\/reliaforge-(?:backend|frontend)\/blob\/main\/docs\/)zh\//, "$1")
 }
 
 function publicLinks(markdown) {

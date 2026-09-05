@@ -22,6 +22,18 @@ test("accepts complete locale trees with translated prose and identical technica
   assert.deepEqual(checkLocaleParity(root), [])
 })
 
+test("accepts corresponding repository doc languages while detecting a different destination", () => {
+  const root = makeDocs()
+  const prefix = "https://github.com/SajoLuo/reliaforge-backend/blob/main/docs/"
+  fs.writeFileSync(path.join(root, "guide", "start.md"), `# Guide\n\n[Guide](${prefix}plugin-development.md)\n`)
+  const chinesePath = path.join(root, "zh", "guide", "start.md")
+  fs.writeFileSync(chinesePath, `# 指南\n\n[指南](${prefix}zh/plugin-development.md)\n`)
+  assert.deepEqual(checkLocaleParity(root), [])
+
+  fs.writeFileSync(chinesePath, `# 指南\n\n[指南](${prefix}zh/architecture.md)\n`)
+  assert.deepEqual(checkLocaleParity(root), [{ rule: "public-link", path: "guide/start.md" }])
+})
+
 test("reports missing and orphan locale routes", () => {
   const root = makeDocs()
   fs.writeFileSync(path.join(root, "guide", "english-only.md"), "# English\n")

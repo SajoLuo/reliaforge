@@ -1,41 +1,58 @@
 # Core concepts
 
-These five ideas explain how ReliaForge runs plugins.
+ReliaForge runs Python operations tools as plugins. Developers supply the tools; the platform loads
+them, checks dependencies, reads configuration, and manages their start and stop operations.
 
-## A metadata file describes each plugin
+## What is a plugin?
 
-Every plugin has a `manifest.json` with its ID, version, dependencies, services, and Python entry
-point. ReliaForge checks all metadata before it imports plugin code. A broken plugin and anything
-that depends on it are reported without hiding unrelated plugins.
+A plugin is a directory containing Python code and a `manifest.json` file. The file gives
+ReliaForge the plugin's name, version, entry point, and dependencies.
 
-## Run state and health answer different questions
+The code can provide a query API, collect data in the background, or run a runbook service. The
+author decides what it does. The [plugin tutorial](./plugin-development.md) shows how to turn a
+Python function into an API your team can call.
 
-Run state tells you what ReliaForge has done:
+## What happens when I start it?
 
-```text
-discover -> validate -> initialize -> start -> stop
-```
+The backend checks the plugin's settings, prepares its resources, and calls its startup code.
+Dependencies must be running first. Stopping it calls the author's cleanup code, such as closing
+clients and ending background tasks.
 
-Health tells you whether a loaded plugin is healthy, degraded, in error, or stopped. Health checks
-read current in-memory state; they do not repair external systems.
+The console shows two kinds of status:
 
-## Plugins share named services
+| Status | What it tells you |
+| --- | --- |
+| Run state | Whether the plugin is running, stopped, or has encountered an error |
+| Health | Whether the running service reports a problem; a running plugin can report degraded health |
 
-A plugin can publish a service under a name such as `demo.greeting`. Another plugin lists that
-provider as a dependency and asks ReliaForge for the service. It does not import the provider's
-private Python modules.
+Starting a plugin makes its service available. To perform a query or another business operation,
+call the service's API.
 
-## One settings class defines configuration
+## How do I use its service?
 
-A plugin's Python `PluginSettings` class reads environment variables and defines the configuration
-fields shown in the console. Secret values and secret defaults are not returned by catalog APIs.
+Each plugin defines its own API under `/api/v1/plugins/{plugin_id}`. Follow the author's usage
+instructions for its endpoints, parameters, and responses. In local development, you can also
+browse the APIs at `http://127.0.0.1:8000/api/v1/docs`.
 
-## The backend decides which actions are available
+The console shows plugin status and start and stop controls. A plugin's business interface is
+provided by its author.
 
-Each plugin record returned by the management list and detail APIs includes `available_actions`.
-The backend calculates this list from the plugin's current state and dependencies. The console
-displays the list; the API still authenticates and checks every request when an operator clicks an
-action.
+## How do plugins work together?
 
-Plugins run as trusted Python code inside the backend process. Only install plugins you have
-reviewed.
+A plugin can share a Python service with other plugins. For example, `demo` shares
+`demo.greeting`; the bundled `runbook` plugin uses it to build a text preview.
+
+The provider lists the service name in `capabilities`. A consumer lists the provider in
+`dependencies` before requesting the service. These fields describe cooperation between plugins;
+HTTP endpoints are defined in the plugin's router.
+
+## Where do I configure a plugin?
+
+Set the plugin's environment variables before starting the backend. Its `PluginSettings` class
+defines the accepted fields. For example, the generated `sample_tool` reads its message from
+`RELIAFORGE_SAMPLE_TOOL_MESSAGE`.
+
+The console shows field definitions, including types and defaults, rather than current values.
+Secret values and secret defaults are omitted. See the backend's
+[configuration examples](https://github.com/SajoLuo/reliaforge-backend/blob/main/docs/plugin-development.md)
+when adding settings to your own plugin.

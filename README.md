@@ -2,9 +2,12 @@
 
 [简体中文](README_CN.md)
 
-ReliaForge helps SRE teams turn Python scripts and runbooks into managed plugins. One backend loads
-the plugins, starts dependencies in order, reports health, and provides start, stop, and restart
-operations. An optional web console gives operators one place to see what is running.
+ReliaForge is a plugin-based operations platform. Package your Python operations tools as
+plugins and let the backend run them. Teammates use each tool through its API or an interface
+provided by its author.
+
+The backend loads plugins, checks dependencies, and reads configuration. The optional console
+shows plugin status and lets you start, stop, and restart them.
 
 - [Documentation](https://reliaforge.dev/)
 - [Read-only demo](https://demo.reliaforge.dev/)

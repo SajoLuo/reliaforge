@@ -3,8 +3,8 @@
 ## Target
 
 - Approved direction: `Geist Grid`, based on the selected Image Gen reference.
-- Product position: a pluggable SRE platform that lets teams reuse the platform layer, ship
-  operations plugins faster, and follow one development convention.
+- Product position: a plugin-based operations platform. Developers provide Python services as
+  plugins; the platform manages loading, dependencies, configuration, authentication, and lifecycle.
 - Real console asset: `docs/public/console-preview.png` (2560 x 1600, lossless PNG).
 - Social preview asset: `docs/public/og-preview.png` (1200 x 630, lossless PNG).
 
@@ -39,15 +39,15 @@ deployed. The refresh made three content-level corrections:
 
 - Made plugin delivery, reuse of shared platform capabilities, and team conventions the primary
   story; implementation details remain supporting evidence.
-- Replaced abstract platform language with concrete SRE tasks: scripts, runbooks, dependencies,
-  settings, health checks, and lifecycle operations.
-- Described failure isolation narrowly and accurately. ReliaForge keeps unrelated plugins and the
-  management plane available after a plugin load failure; it does not claim sandbox isolation for
-  trusted in-process plugins.
+- Made service plugins the main subject, with runbooks as one example. The console manages plugin
+  status and lifecycle; users access each service through its own API or author-provided interface.
+- Clarified failure handling: malformed manifests and dependency graphs prevent backend startup.
+  After metadata validation, an individual code load failure leaves unrelated plugins available.
 
 The previous preview was a compressed 957 x 667 JPEG stored with a `.png` extension. It was
 replaced with a real 2560 x 1600 PNG captured from the public demo, plus a dedicated 1200 x 630
-social preview that no longer relies on a cropped product screenshot.
+social preview. Both now use fresh screenshots of the local production demo build with the updated
+console copy; the social viewport includes both plugin rows without cropping them.
 
 ## Browser verification
 
@@ -69,12 +69,35 @@ social preview that no longer relies on a cropped product screenshot.
 
 - TypeScript and ESLint: passed.
 - Markdown lint: passed (31 files).
-- Unit tests: passed (9).
+- Unit tests: passed (10).
 - Locale parity: passed.
 - VitePress production build: passed.
 - Playwright: 12 passed, 2 expected project-specific skips.
 - Open-source hygiene and exact binary allowlist: passed.
 - Dependency audit: 0 vulnerabilities.
 - `git diff --check`: passed.
+
+## Positioning verification on 2026-09-05
+
+- Rebuilt the console and site locally after the positioning and bilingual copy changes.
+- Refreshed both PNG previews from the console's production demo build.
+- Checked English and Chinese pages at desktop and mobile widths in light and dark themes.
+- Shortened the Chinese hero's second line after the mobile capture put its final character on
+  a separate line.
+- Confirmed no horizontal overflow or page exceptions, and no API requests from the demo.
+- The generated-plugin service passed the running, stopped, and restarted API check; the console
+  also passed its catalog and restart journeys against the real local backend.
+
+## Plain-language verification on 2026-09-05
+
+- Replaced abstract onboarding and framework-specific demo copy with concrete actions and results.
+- Regenerated both preview assets from the current local production demo build.
+- Verified both languages and themes at 1440, 390, and 320 CSS pixels: no horizontal overflow or
+  page exceptions. Visually inspected the English desktop and Chinese narrow/mobile compositions.
+- Kept the demo heading short enough for narrow screens without an isolated final character.
+- Checked links to the localized plugin tutorial and confirmed that corresponding Chinese source
+  links resolve. Locale parity still rejects links to the wrong document.
+- The backend tutorial's copied files passed real HTTP checks for success, unknown service,
+  invalid parameters, stopping, and restarting.
 
 final result: passed

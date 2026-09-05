@@ -20,6 +20,7 @@ python -m venv .venv
 source .venv/bin/activate
 python -m pip install --upgrade pip
 python -m pip install -e ".[dev]"
+cp .env.example .env
 reliaforge
 ```
 
@@ -29,7 +30,7 @@ reliaforge
 
 ## 2. 看看平台加载了什么
 
-依次查询运行状态、插件列表和两个内置示例：
+保持后端运行，另开一个终端，查询状态、插件列表和示例 API：
 
 ```bash
 curl http://127.0.0.1:8000/api/v1/status
@@ -38,27 +39,46 @@ curl http://127.0.0.1:8000/api/v1/plugins/demo/greeting
 curl http://127.0.0.1:8000/api/v1/plugins/runbook/preview
 ```
 
-前两个请求用于确认后端已经启动，并查看成功加载的插件。后两个请求分别调用问候插件和
-Runbook 预览插件。这些示例不会产生网络、数据库、文件系统或命令副作用。
+前两个请求查看后端状态和已加载插件。后两个请求调用插件自己的服务：`demo` 返回问候语，
+`runbook` 使用这段问候语生成文本预览。它们展示了两个服务及其依赖关系，都不会执行外部命令
+或修改系统。
 
 ## 3. 用脚手架创建插件
 
-请使用脚手架，不要手工复制示例：
+先用 Ctrl+C 停止后端，再生成并加载插件：
 
 ```bash
 reliaforge-scaffold sample_tool --destination ./local-plugins
 RELIAFORGE_PLUGIN_PATHS=./local-plugins reliaforge
 ```
 
-脚手架会创建说明文件、配置、启停钩子、路由、Service、Model 和测试。
-`RELIAFORGE_PLUGIN_PATHS` 用于告诉后端去哪里查找本地插件，无需把插件复制到
-ReliaForge 源码目录。
+在 PowerShell 中，将最后一行替换为：
 
-准备把示例逻辑替换为真实运维任务时，继续阅读[开发插件](./plugin-development.md)。
+```powershell
+$env:RELIAFORGE_PLUGIN_PATHS = "./local-plugins"
+reliaforge
+```
+
+命令会创建 `local-plugins/sample_tool/`。路径变量指向存放插件的父目录 `local-plugins`。
+
+保持这个后端运行，在另一个终端调用新插件：
+
+```bash
+curl --fail http://127.0.0.1:8000/api/v1/plugins/sample_tool/message
+```
+
+预期返回：
+
+```json
+{"message": "Generated plugin is running", "plugin_id": "sample_tool"}
+```
+
+现在，你已经有了一个能运行的插件。下一步按[开发插件](./plugin-development.md)加入自己的
+Python 函数，让使用者通过 API 查询某个服务由哪个团队负责。
 
 ## 4. 需要界面时再启动控制台
 
-在另一个终端中执行：
+在 `reliaforge-backend` 的父目录中另开一个终端，执行：
 
 ```bash
 git clone https://github.com/SajoLuo/reliaforge-frontend.git
@@ -68,8 +88,8 @@ npm ci
 npm run dev
 ```
 
-打开 `http://127.0.0.1:5530`。控制台不是必选项，它通过后端 API 工作。任何在构建时注入
-浏览器的变量都可能被用户读取，因此绝不能放入 API 密钥或代理密钥。
+打开 `http://127.0.0.1:5530` 查看插件列表。浏览器中的配置对访问者可见，API 密钥和代理
+密钥应只放在后端或代理中。
 
 ## 5. 选择下一步
 
@@ -77,7 +97,7 @@ npm run dev
 | --- | --- | --- | --- |
 | [在线演示](https://demo.reliaforge.dev/#/zh/) | 保存的示例数据 | 不能 | 安装前先看看界面和信息结构 |
 | 本地开发 | 本地 Python 进程 | 可以，仅限开发模式 | 开发和测试插件 |
-| 生产部署 | 团队批准的后端 | 可以，需要管理认证 | 运行团队的插件 |
+| 生产部署 | 团队部署的后端 | 可以，须先通过身份验证 | 运行团队的插件 |
 
 部署到生产环境之前，请阅读[安全模型](../reference/security.md)和
 [控制台部署](./deploying-console.md)指南。

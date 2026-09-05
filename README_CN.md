@@ -2,9 +2,10 @@
 
 [English](README.md)
 
-ReliaForge 帮助 SRE 团队把 Python 脚本和 Runbook 做成可管理的插件。一个后端负责加载插件、
-按依赖顺序启动、报告健康状态，并提供启动、停止和重启操作；可选的 Web 控制台让值班人员在
-一个地方看清当前运行情况。
+ReliaForge 是插件式运维平台。把 Python 运维工具做成插件，交给后端运行。团队成员通过
+工具的 API 或作者提供的界面使用它。
+
+后端负责加载插件、检查插件间依赖和读取配置。可选控制台用于查看状态、启动、停止和重启插件。
 
 - [文档](https://reliaforge.dev/zh/)
 - [只读在线演示](https://demo.reliaforge.dev/#/zh/)

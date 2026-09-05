@@ -3,8 +3,8 @@ import { expect, test } from "@playwright/test"
 test("landing page exposes the project boundary and primary destinations", async ({ page }) => {
   await page.goto("./")
 
-  await expect(page.getByRole("heading", { name: /Turn scripts into/, level: 1 })).toBeVisible()
-  await expect(page.getByText("Stop rebuilding the same operations service")).toBeVisible()
+  await expect(page.getByRole("heading", { name: /Your Python tools/, level: 1 })).toBeVisible()
+  await expect(page.getByText("Put your team's tools to work")).toBeVisible()
   await expect(page.getByRole("link", { name: "Try the demo" })).toHaveAttribute(
     "href",
     "https://demo.reliaforge.dev/",
@@ -25,8 +25,8 @@ test("Chinese landing page exposes equivalent localized destinations", async ({ 
   await page.goto("./zh/")
 
   await expect(page.locator("html")).toHaveAttribute("lang", "zh-CN")
-  await expect(page.getByRole("heading", { name: /把脚本变成/, level: 1 })).toBeVisible()
-  await expect(page.getByText("不再为每个运维工具重建一套服务")).toBeVisible()
+  await expect(page.getByRole("heading", { name: /把运维工具/, level: 1 })).toBeVisible()
+  await expect(page.getByText("让团队用上你写的工具")).toBeVisible()
   await expect(page.getByRole("link", { name: "在线体验" })).toHaveAttribute(
     "href",
     "https://demo.reliaforge.dev/#/zh/",
